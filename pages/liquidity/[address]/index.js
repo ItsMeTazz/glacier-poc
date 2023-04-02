@@ -3,7 +3,7 @@ import LiquidityManage from "../../../components/ssLiquidityManage";
 
 import classes from "./liquidity.module.css";
 
-function Pair({ changeTheme }) {
+function Pair() {
   return (
     <div className={classes.container}>
       <LiquidityManage />

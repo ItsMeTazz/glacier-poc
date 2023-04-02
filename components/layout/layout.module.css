@@ -4,20 +4,26 @@
   height: 100%;
   width: 100%;
   display: flex;
-  background-image: url('/images/bg2.png');
-  background-color: black; 
+  background-color: black;
+  /* background-image: url('/images/bg2.png');
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: fixed; */
   position: relative;
 }
 
+.backgroundImageContainer {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
+
 .pinkgrid1 {
-  height: 400px; 
+  height: 400px;
   width: 100%;
   position: absolute;
   top: 0%;
-  background-image: url('/images/gridbg01.png');
+  background-image: url("/images/gridbg01.png");
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0.5;
@@ -25,11 +31,11 @@
 }
 
 .pinkgrid2 {
-  height: 400px; 
+  height: 400px;
   width: 100%;
   position: absolute;
   bottom: 0%;
-  background-image: url('/images/gridbg02.png');
+  background-image: url("/images/gridbg02.png");
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0.5;
@@ -37,8 +43,12 @@
 }
 
 @media screen and (max-width: 960px) {
-.pinkgrid1 { display: none; }
-.pinkgrid2 { display: none; }
+  .pinkgrid1 {
+    display: none;
+  }
+  .pinkgrid2 {
+    display: none;
+  }
 }
 
 .content {
