@@ -10,6 +10,9 @@
     "build2": "next build && next export",
     "start": "NODE_ENV=production node server.js"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@dopex-io/web3-multicall": "^0.1.5",
     "@emotion/react": "^11.10.4",
