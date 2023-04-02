@@ -68,7 +68,7 @@ h1 {
     display: inline-block;
 }
 .socialIcon {
-  justify-content: end;
+  justify-content: flex-end;
   display: flex;
   margin: 30px 40px 30px 0px;
 }

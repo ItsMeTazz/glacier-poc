@@ -13,23 +13,25 @@
   border: 0;
   border-radius: 0 !important; */
 }
-.mainHeader{
+.mainHeader {
   display: grid;
   width: 100%;
   padding: 10px 20px 0px 20px;
   flex-wrap: wrap;
   align-items: center;
 }
-.rightSide{
+.rightSide {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: fill min-content;
+  grid-template-columns: stretch min-content;
 }
-.rightMenu{
+.rightMenu {
   display: grid;
   width: 100%;
 }
-.hidden { display: none !important; }
+.hidden {
+  display: none !important;
+}
 
 .userMenu {
   z-index: 10030 !important;
@@ -40,7 +42,7 @@
 }
 
 .ddIcon {
-  color: #7E99B0;
+  color: #7e99b0;
   margin-left: 5px;
   margin-top: -2px;
   margin-right: -8px;
@@ -49,7 +51,7 @@
 .userMenuIcon {
   padding: 0 !important;
   margin-right: -30px;
-  color: #FF01D6 !important;
+  color: #ff01d6 !important;
 }
 .header_appLogo__3qAcx {
   position: fixed;
@@ -95,7 +97,7 @@
 
 .intro {
   background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
-  color: #FFF !important;
+  color: #fff !important;
 }
 
 .aboutmodal dialog {
@@ -109,7 +111,7 @@
 }
 
 .abouttext a {
-  color: #374DFA !important;
+  color: #374dfa !important;
 }
 
 .abouttitle {
@@ -141,22 +143,22 @@
   z-index: 10030 !important;
 }
 
-.mainHeader .connectBtn{
-    background: black;
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 16px;
-    letter-spacing: 1px;
-    font-weight: 100;
-    position: relative;
-    z-index: 1;
-    font-family: "Etna", sans-serif;
-    max-height: 40px;
-    height: fill;
-    border: 2px solid gray;
-    border-radius: 0;
+.mainHeader .connectBtn {
+  background: black;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: 100;
+  position: relative;
+  z-index: 1;
+  font-family: "Etna", sans-serif;
+  max-height: 40px;
+  height: stretch;
+  border: 2px solid gray;
+  border-radius: 0;
 }
-.mainHeader .connectBtnIA{
+.mainHeader .connectBtnIA {
   color: black;
   text-transform: uppercase;
   font-size: 14px;
@@ -166,12 +168,12 @@
   z-index: 1;
   font-family: "Etna", sans-serif;
   max-height: 40px;
-  height: fill;
+  height: stretch;
   width: 200px;
   border: 2px solid gray;
   border-radius: 0;
 }
-.mobileHeader .connectBtn{
+.mobileHeader .connectBtn {
   background: black;
   border: 2px solid black;
   border-radius: 0px;
@@ -180,7 +182,7 @@
   font-size: 18px;
   letter-spacing: 1px;
   font-weight: 100;
-  padding:10px;
+  padding: 10px;
   position: relative;
   z-index: 1;
   margin: 10px;
@@ -219,9 +221,14 @@
   transition: all 300ms ease-out;
 } */
 
-
 .switchNetworkBtn {
-  background: linear-gradient(180deg, #F4F1F7 0%, #ECE3F3 44.13%, #8F7D9D 86.26%, #F6ECFD 100%); 
+  background: linear-gradient(
+    180deg,
+    #f4f1f7 0%,
+    #ece3f3 44.13%,
+    #8f7d9d 86.26%,
+    #f6ecfd 100%
+  );
   color: #030303 !important;
   padding: 5px;
   border-radius: 0 !important;
@@ -240,8 +247,8 @@
   font-size: 12px !important;
   margin-left: 14px !important;
   background: linear-gradient(266.44deg, #e628ed 0%, #7105d7 100%);
-	background-size: 200% 200%;
-	animation: gradient 35s ease infinite;
+  background-size: 200% 200%;
+  animation: gradient 35s ease infinite;
   color: #fff !important;
   -webkit-transition: background-image 1s ease-in-out;
   transition: background-image 1s ease-in-out;
@@ -250,19 +257,19 @@
 }
 
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .prettyButton:hover {
-  background-image: linear-gradient(270deg ,#1c46f5 0,#0005d3) !important;
+  background-image: linear-gradient(270deg, #1c46f5 0, #0005d3) !important;
 }
 
 .accountIcon {
@@ -274,25 +281,25 @@
 
 .headBtnTxt {
   font-size: 11px !important;
-  font-family: "Etna", sans-serif!important;
-  font-weight:600!important;
+  font-family: "Etna", sans-serif !important;
+  font-weight: 600 !important;
   text-transform: uppercase;
 }
 
 .metamask {
-  background-image: url('/connectors/icn-metamask.svg');
+  background-image: url("/connectors/icn-metamask.svg");
 }
 .ledger {
-  background-image: url('/connectors/icn-ledger.svg');
+  background-image: url("/connectors/icn-ledger.svg");
 }
 .coinbase {
-  background-image: url('/connectors/coinbaseWalletIcon.svg');
+  background-image: url("/connectors/coinbaseWalletIcon.svg");
 }
 .torus {
-  background-image: url('/connectors/torus.jpg');
+  background-image: url("/connectors/torus.jpg");
 }
 .trust {
-  background-image: url('/connectors/trustWallet.png');
+  background-image: url("/connectors/trustWallet.png");
 }
 
 .themeSelectContainer {
@@ -303,7 +310,7 @@
 .switchIcon {
   font-size: 1rem !important;
   margin-top: 0.275rem;
-  color: rgba(108,108,123, 1);
+  color: rgba(108, 108, 123, 1);
 }
 
 .switchIcon:hover {
@@ -338,10 +345,8 @@
   backdrop-filter: blur(15px);
 }
 
-
-
 .ErrorTxt {
-  color: #FFF;
+  color: #fff;
   max-width: 420px;
   line-height: 1.5em !important;
   font-size: 1.4em !important;
@@ -358,7 +363,7 @@
   min-width: 150px;
   width: calc(50% - 678px);
   font-size: 24px !important;
-  color: #1c46f5 ;
+  color: #1c46f5;
 }
 
 .flex1 {
@@ -377,34 +382,39 @@
 }
 
 .link:hover {
-  border-bottom: 2px solid #1c46f5 ;
+  border-bottom: 2px solid #1c46f5;
   margin-bottom: 0px !important;
 }
 
 .linkActive {
   margin: 2px 0px !important;
   margin-bottom: 0px !important;
-  border-bottom: 2px solid #1c46f5 ;
+  border-bottom: 2px solid #1c46f5;
   margin-right: 24px !important;
   cursor: pointer;
 }
 
-
 .testnetDisclaimerText {
   font-size: 13px !important;
   font-weight: 200 !important;
-  border: 1px solid #FF01D6 !important;
+  border: 1px solid #ff01d6 !important;
   border-radius: 10px;
-  color: white; 
-  background: rgba(255, 1, 214, .1) !important;
+  color: white;
+  background: rgba(255, 1, 214, 0.1) !important;
   padding: 16px !important;
 }
 
-
 @media screen and (max-width: 1200px) {
-
   .sidebar {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 5px;
     height: 45px;
     display: flex;
@@ -414,7 +424,15 @@
   }
 
   .sidebar2 {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 7px;
     height: 45px;
     display: flex;
@@ -424,7 +442,15 @@
   }
 
   .sidebar3 {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 10px;
     height: 45px;
     display: flex;
@@ -432,7 +458,7 @@
     right: 23px;
     position: absolute;
   }
-  
+
   .sidebar4 {
     background: black;
     width: 38px;
@@ -441,17 +467,23 @@
     z-index: 15000;
     right: -1px;
     position: absolute;
-    border: 1px solid #F4F1F7 !important;
+    border: 1px solid #f4f1f7 !important;
   }
 
   .accountButton {
     display: flex;
     align-items: center;
     margin-left: 0 !important;
-    border-radius: 4px !important; 
+    border-radius: 4px !important;
     color: #030303 !important;
-    width: 200px;  
-    background: linear-gradient(180deg, #F4F1F7 0%, #ECE3F3 44.13%, #8F7D9D 86.26%, #F6ECFD 100%); 
+    width: 200px;
+    background: linear-gradient(
+      180deg,
+      #f4f1f7 0%,
+      #ece3f3 44.13%,
+      #8f7d9d 86.26%,
+      #f6ecfd 100%
+    );
     position: fixed !important;
     z-index: 10030 !important;
     top: 17px !important;
@@ -462,20 +494,19 @@
     -ms-transition: all 300ms ease-out;
     -o-transition: all 300ms ease-out;
     transition: all 300ms ease-out;
-    
   }
   .accountButton:hover {
-    border: 1px solid #F4F1F7 !important;
-    color: #F4F1F7 !important; 
-    background: black !important; 
+    border: 1px solid #f4f1f7 !important;
+    color: #f4f1f7 !important;
+    background: black !important;
     /* transform: scale(0.9);
     -webkit-transition: all 300ms ease-out;
     -moz-transition: all 300ms ease-out;
     -ms-transition: all 300ms ease-out;
     -o-transition: all 300ms ease-out;
     transition: all 300ms ease-out; */
-    }
   }
+}
 
 @media screen and (max-width: 560px) {
   .accountButton {
@@ -486,7 +517,15 @@
   }
 
   .sidebar {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 5px;
     height: 34px;
     display: flex;
@@ -496,7 +535,15 @@
   }
 
   .sidebar2 {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 7px;
     height: 34px;
     display: flex;
@@ -506,7 +553,15 @@
   }
 
   .sidebar3 {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 10px;
     height: 34px;
     display: flex;
@@ -514,7 +569,7 @@
     right: 23px;
     position: absolute;
   }
-  
+
   .sidebar4 {
     background: black;
     width: 38px;
@@ -523,19 +578,27 @@
     z-index: 15000;
     right: -1px;
     position: absolute;
-    border: 1px solid #F4F1F7 !important;
+    border: 1px solid #f4f1f7 !important;
   }
 }
-@media screen and (min-width: 992px){
-  .headerLeft{
+@media screen and (min-width: 992px) {
+  .headerLeft {
     justify-content: end;
   }
-  .mobileHeader{
-    display: none!important;
+  .mobileHeader {
+    display: none !important;
   }
 
   .sidebar {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 5px;
     height: 34px;
     display: flex;
@@ -545,7 +608,15 @@
   }
 
   .sidebar2 {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 7px;
     height: 34px;
     display: flex;
@@ -555,7 +626,15 @@
   }
 
   .sidebar3 {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 10px;
     height: 34px;
     display: flex;
@@ -563,7 +642,7 @@
     right: 23px;
     position: absolute;
   }
-  
+
   .sidebar4 {
     background: black;
     width: 38px;
@@ -572,26 +651,34 @@
     z-index: 15000;
     right: -1px;
     position: absolute;
-    border: 1px solid #F4F1F7 !important;
+    border: 1px solid #f4f1f7 !important;
   }
 }
-@media screen and (max-width: 992px){
-  .headerLeft{
-    display: none!important;
-    }
-    .headerlogoSide{
-      display: flex;
-      justify-content: space-around;
-      width: fit-content;
-    }
-    .menubar{
-      display: block!important;
-      margin-top: 30px;
-      margin-right: 20px;
-    }
+@media screen and (max-width: 992px) {
+  .headerLeft {
+    display: none !important;
+  }
+  .headerlogoSide {
+    display: flex;
+    justify-content: space-around;
+    width: fit-content;
+  }
+  .menubar {
+    display: block !important;
+    margin-top: 30px;
+    margin-right: 20px;
+  }
 
   .sidebar {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 5px;
     height: 34px;
     display: flex;
@@ -601,7 +688,15 @@
   }
 
   .sidebar2 {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 7px;
     height: 34px;
     display: flex;
@@ -611,7 +706,15 @@
   }
 
   .sidebar3 {
-    background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+    background: linear-gradient(
+      180deg,
+      #ff5d2a 0%,
+      #ff00d6 23.23%,
+      #bd00ff 41.98%,
+      #6100ff 61.25%,
+      #009cf3 81.56%,
+      #00ffb2 100%
+    );
     width: 10px;
     height: 34px;
     display: flex;
@@ -619,7 +722,7 @@
     right: 23px;
     position: absolute;
   }
-  
+
   .sidebar4 {
     background: black;
     width: 38px;
@@ -628,60 +731,55 @@
     z-index: 15000;
     right: -1px;
     position: absolute;
-    border: 1px solid #F4F1F7 !important;
+    border: 1px solid #f4f1f7 !important;
   }
 }
-
 
 /* ===========kunika================================== */
-.mainLogo{
+.mainLogo {
   width: 10px;
 }
-.mainLogo:hover{
+.mainLogo:hover {
   cursor: pointer;
 }
 
-.headerLeft{
+.headerLeft {
   display: flex;
 }
-.headerLeft .testnet{
+.headerLeft .testnet {
   padding: 10px 10px;
-    border-radius: 10px;
-    border: 1px solid #0a79da;
-    height: 45px
+  border-radius: 10px;
+  border: 1px solid #0a79da;
+  height: 45px;
 }
-.headerLeft .testnet p{
+.headerLeft .testnet p {
   font-size: 15px;
 }
 
-.menubar{
+.menubar {
   display: none;
 }
 
-
-
-
 /* ==========mobile menu============================ */
-.navButton{
-  display: block!important;
+.navButton {
+  display: block !important;
   width: 100%;
-  border-bottom: 1px solid #cccccc26!important;
-  border-radius: 0!important;
+  border-bottom: 1px solid #cccccc26 !important;
+  border-radius: 0 !important;
 }
-.mobileMenu{
-  display: block!important;
+.mobileMenu {
+  display: block !important;
 }
-.mobileMenu .subtitleText{
+.mobileMenu .subtitleText {
   text-align: left;
   margin-left: 20px;
   font-size: 13px;
   color: #fff;
-
 }
 .testChange {
   background-color: rgba(255 255 255 0.1) !important;
 }
-.mobileHeader{
+.mobileHeader {
   border-bottom: 2px solid gray;
   background-color: black;
 }
