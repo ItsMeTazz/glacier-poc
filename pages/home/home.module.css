@@ -1,0 +1,350 @@
+.ffContainer {
+  height: 100%;
+  width: auto;
+  margin-top: 0px;
+  position: relative;
+}
+
+.contentContainerFull,
+.contentContainerFullTwo {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.homeContentMain {
+  text-align: center !important;
+  max-width: 50vw;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.mainTitle {
+  font-family: 'Monument' !important;
+  font-size: 60px !important;
+  margin-bottom: 30px !important;
+  animation: mainTitleAnim 1s ease 1;
+  animation-delay: 200ms;
+  animation-fill-mode: forwards;
+  position: relative;
+  bottom: 0;
+  opacity: 0;
+  text-align: center !important;
+}
+
+@keyframes mainTitleAnim {
+  0% {
+    bottom: -100px;
+    opacity: 0;
+  }
+
+  100% {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+.appLogo {
+  transform: scale(6);
+  position: fixed;
+  left: 100px;
+  top: 30px;
+}
+
+.preTitle {
+  font-family: 'Monument' !important;
+  font-size: 18px !important;
+  text-transform: uppercase;
+  color: #06D3D7 !important;
+  margin-bottom: 20px !important;
+  font-weight: 100 !important;
+  letter-spacing: 3px;
+  animation: preTitleAnim 1s ease 1;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+  position: relative;
+  bottom: 0;
+  opacity: 0;
+}
+
+@keyframes preTitleAnim {
+  0% {
+    bottom: -100px;
+    opacity: 0;
+  }
+
+  100% {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+.secTitle {
+  font-family: 'Monument' !important;
+  font-size: 30px !important;
+  margin-bottom: 20px !important;
+  text-align: center !important;
+}
+
+.mainDescription {
+  font-size: 20px !important;
+  margin-bottom: 20px !important;
+  line-height: 1.7rem !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.secDescription {
+  font-size: 16px !important;
+  margin-bottom: 20px !important;
+  line-height: 1.7rem !important;
+  color: #7E99B0 !important;
+}
+
+.buttonInfo {
+  background: #212B48 !important;
+  font-family: 'Monument' !important;
+  padding: 12px 20px 10px 20px !important;
+  min-width: 100% !important;
+  text-transform: capitalize !important;
+  color: #7E99B0 !important;
+  animation: buttonInfoAnim 1s ease 1;
+  animation-delay: 400ms;
+  animation-fill-mode: forwards;
+  position: relative;
+  bottom: 0;
+  opacity: 0;
+}
+
+@keyframes buttonInfoAnim {
+  0% {
+    bottom: -100px;
+    opacity: 0;
+  }
+
+  100% {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+.buttonEnter {
+  animation: buttonInfoAnim 1s ease 1;
+  animation-delay: 600ms;
+  animation-fill-mode: forwards;
+  position: relative;
+  bottom: 0;
+  opacity: 0;
+}
+
+.buttonEnter,
+.buttonEnterSingle {
+  background: black;
+  border: 2px solid gray;
+  color: #fff;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  padding: 2px;
+  max-height: 40px;
+  width: 200px;
+}
+
+.floatingSphere {
+  height: 600px;
+  width: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url('/images/sphere_001.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1;
+  mix-blend-mode: lighten;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 960px) {
+  .floatingSphere {
+    display: none;
+  }
+
+  .homeContentMain {
+    text-align: center;
+    max-width: 80vw;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  .mainDescription {
+    font-size: 16px !important;
+    margin-bottom: 20px !important;
+    line-height: 1.7rem !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .secDescription {
+    font-size: 14px !important;
+    margin-bottom: 20px !important;
+    line-height: 1.2rem !important;
+    color: #7E99B0 !important;
+  }
+
+  .buttonInfo,
+  .buttonEnter {
+    width: 100% !important;
+    margin: 0 !important;
+    float: none !important;
+  }
+
+  .mainTitle {
+    font-size: 38px !important;
+    margin-bottom: 25px !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .viewCollateral {
+    margin: 80px 0 0px 15px !important;
+    float: right;
+  }
+
+  .mainTitle {
+    font-size: 32px !important;
+    margin-bottom: 25px !important;
+  }
+
+  .secTitle {
+    font-size: 20px !important;
+  }
+
+  .mainDescription {
+    font-size: 14px !important;
+    margin-bottom: 20px !important;
+    line-height: 1.4rem !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .secDescription {
+    font-size: 13px !important;
+    margin-bottom: 20px !important;
+    line-height: 1.2rem !important;
+    color: #7E99B0 !important;
+  }
+
+  .mainHeading {
+    margin: 0px 0 0px 0 !important;
+    text-align: left !important;
+    font-size: 20px !important;
+  }
+
+  .accountInfo {
+    display: none;
+  }
+}
+
+
+/* -----------------kunik-------------------------- */
+.banner {
+  margin-top: 100px;
+  height: 100%;
+}
+
+.leftSideBanner h1 {
+  color: #fff;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 102.5%;
+  width: 100%;
+}
+
+.leftSideBanner{
+  display: grid;
+  gap: 20px;
+}
+
+.bodymainidex {
+  /* background-image: url('/images/home-bg.png'); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  background-position: center center;
+  padding-bottom: 300px;
+}
+
+.rightBanner {
+  text-align: center;
+  padding-top: 60px;
+}
+
+.rightBanner img {
+  width: 55%;
+}
+
+@media screen and (max-width:768px) {
+  .bodymainidex {
+    padding: 0 !important;
+  }
+
+  .banner {
+    margin-top: 0px;
+  }
+
+  .leftSideBanner h1 {
+    color: #fff;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 110.5%;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-top: 52px;
+    width: 100%;
+  }
+  .buttonEnter,
+.buttonEnterSingle{
+  margin: 50px 15px!important;
+}
+}
+
+.buttonContainer{
+  display: flex;
+  gap: 40px;
+}
+
+.subButton{
+  display: grid;
+  grid-auto-flow: column;
+  gap: 5px;
+  align-items: center;
+  border: 2px solid gray;
+  padding: 2px;
+  width: fit-content;
+  height: fit-content;
+}
+
+/*Mobile Media Query Homepage*/
+@media only screen and (max-width:400px){
+  .leftSideBanner{
+    display: grid;
+    grid-auto-flow: row;
+  }
+  .buttonContainer{
+    display: grid;
+    justify-self: center;
+    justify-items: center;
+  }
+
+  .buttonEnterSingle{
+    margin: 0 !important;
+  }
+}
+

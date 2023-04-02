@@ -1,0 +1,122 @@
+
+.iceberg {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ width: 420px;
+ height: 420px;
+ background-image: url('/images/glacierhero1.png');
+ background-size: contain;
+ background-position: center;
+ background-repeat: no-repeat;
+ opacity: 0.4;
+}
+
+.adjacent {
+    display: flex;
+    /* max-height: fit-content; */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .connectwallet {
+    background: linear-gradient(180deg, #F4F1F7 0%, #ECE3F3 44.13%, #8F7D9D 86.26%, #F6ECFD 100%); 
+    color: #030303 !important;
+    padding: 5px;
+    border-radius: 0 !important;
+    border: 2px solid gray !important;
+    margin: 2px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700 !important;
+    width: 100%;
+    height: 40px;
+    justify-self: center;
+  }
+
+      .notConnectedContent {
+       width: calc(100%) !important;
+       background: rgba(17,23,41,0.2) !important;
+       text-align: center;
+       padding: 50px;
+       height: calc(100vh);
+       box-shadow: none !important;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       flex-wrap: wrap;
+       flex-direction: column;
+       border-radius: 0 !important;
+       position: fixed;
+       top: 0;
+       z-index: 1;
+     }
+
+.lockedheading {
+ text-align: center !important;
+ font-size: 36px !important;
+ font-family: 'JetBrains' !important;
+ font-weight: 100 !important;
+ color: #FFFFFF;
+}
+
+.lockedsub {
+ margin: 24px auto !important;
+ text-align: center !important;
+ color: #7E99B0;
+ font-size: 18px !important;
+ max-width: 800px;
+ line-height: 1.8rem !important;
+}
+
+.glacierpink { 
+ color: #FF01D6; 
+}
+
+.sidebar {
+ background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+ width: 5px;
+ height: 42px;
+ display: flex;
+ z-index: 10;
+ right: 2px;
+ top: 5px;
+ position: absolute;
+}
+
+.sidebar2 {
+ background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+ width: 7px;
+ height: 42px;
+ display: flex;
+ z-index: 10;
+ right: 11px;
+ top: 5px;
+ position: absolute;
+}
+
+.sidebar3 {
+ background: linear-gradient(180deg, #FF5D2A 0%, #FF00D6 23.23%, #BD00FF 41.98%, #6100FF 61.25%, #009CF3 81.56%, #00FFB2 100%);
+ width: 10px;
+ height: 42px;
+ display: flex;
+ z-index: 10;
+ right: 22px;
+ top: 5px;
+ position: absolute;
+}
+
+.sidebar4 {
+ background: black;
+ width: 37px;
+ height: 50px;
+ display: flex;
+ z-index: 5;
+ right: -1px;
+ bottom: -0.5px;
+ position: absolute;
+ border: 1px solid #F4F1F7 !important;
+}

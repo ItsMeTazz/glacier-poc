@@ -1,0 +1,222 @@
+/* page container */ 
+.pagecontainer {
+ width: 100%;
+ padding: 24px;
+ margin: 48px; 
+ background-color: transparent !important;
+ display: flex;
+ align-items: center; 
+ justify-content: center; 
+ flex-direction: row;
+ -webkit-box-shadow: 0 13px 30px 0 rgba(7,9,18,0.1) !important;
+ box-shadow: 0 13px 30px 0 rgba(7,9,18,0.1) !important;
+}
+
+.iceberg {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  height: 420px;
+  background-image: url('/images/glacierhero1.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+}
+
+/* box includes button */ 
+.swapbox {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin-left: 20%; 
+  align-items: center; 
+  justify-content: center; 
+  background-color: transparent;
+}
+
+.swapinputcontainer {
+ display: flex;
+ flex-wrap: wrap;
+ /* margin-bottom: 50px;  */
+ border-radius: 8px;
+ border: 1px solid white; 
+ width: 90% !important;
+ height: 25vh !important; 
+ align-items: center;
+ background-color: transparent; 
+}
+
+.gswap {
+ margin-top: 2px;
+ margin-bottom: 2px;
+ position: relative;
+}
+
+.balancecontainer {
+ display: flex;
+ /* align-items: center; */
+ justify-content: flex-end !important; 
+ align-items: flex-end !important; 
+ /* position: absolute;
+ top: 8px; */
+ background-color:aquamarine !important; 
+}
+
+.balancecontainersub {
+ display: flex;
+ justify-content: flex-start !important;
+ align-items: flex-start !important; 
+ padding-right: 12px;
+ padding-bottom: 6px;
+ cursor: pointer;
+ background-color:chartreuse
+}
+
+.balancetext {
+ font-weight: 100 !important;
+ font-size: 14px !important;
+ color:#fff; 
+ margin-right: 6px !important;
+ margin-top: 6px !important;
+}
+
+.inputassetselect {
+ width: 100px;
+ min-height: 100px;
+ height: 100%;
+}
+
+.coinicon {
+  border: 1px solid white;
+  border-radius: 50px;
+  background: transparent; 
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+}
+
+.textinputbox {
+ flex: 1;
+ height: 100%;
+}
+
+.textinput {
+ font-size: 36px !important;
+}
+
+.tickertext {
+ font-size: 16px !important;
+ margin-top: 0px !important;
+ margin-bottom: 0px !important;
+}
+
+.arrowcontainer {
+ width: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ z-index: 1;
+ height: 0px;
+ margin-bottom: 4rem; 
+ margin-top: 4rem; 
+}
+
+.arrowborder {
+ background: #161B2C;
+ border-radius: 9px;
+ height: 38px;
+ z-index: 1;
+}
+.arrowfill {
+ cursor: pointer;
+ padding: 6px;
+ font-size: 30px !important;
+ background: rgb(33, 43, 72);
+ margin: 4px;
+ border-radius: 6px;
+ /* rainbow fill? */ 
+}
+
+.buttoncontainer {
+ display: grid;
+ grid-gap: 12px;
+ grid-template-columns: 1fr;
+ width: 100%;
+ height: 100%;
+ margin-top: 1rem;
+}
+
+.swapbutton {
+  background: linear-gradient(180deg, #F4F1F7 0%, #ECE3F3 44.13%, #8F7D9D 86.26%, #F6ECFD 100%); 
+  color: #030303 !important;
+  font-weight: 700 !important;
+  max-height: 50px !important;
+  min-width: 350px !important; 
+  min-height: 50px !important; 
+  padding: 0px !important; 
+  border-radius: 4px !important; 
+  /* transform: scale(0.85);
+  -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+  -ms-transition: all 300ms ease-out;
+  -o-transition: all 300ms ease-out;
+  transition: all 300ms ease-out; */
+
+}
+
+.swapbutton:hover {
+  background: #030303 !important;
+  color: #F4F1F7 !important;
+  text-transform: none !important;
+  border: 1px solid #F4F1F7 !important;
+  /* transform: scale(0.9);
+  -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+  -ms-transition: all 300ms ease-out;
+  -o-transition: all 300ms ease-out;
+  transition: all 300ms ease-out; */
+}
+
+@media screen and (max-width: 560px) {
+  .iceberg {
+    visibility: hidden;
+  }
+
+  .balancetext {
+    font-weight: 100 !important;
+    font-size: 10px !important;
+    margin-left: 10px;
+   }
+
+   .textinput {
+    font-size: 18px !important;
+   }
+
+   .textinputbox {
+    padding-right: 10px;
+  }
+
+  .pagecontainer {
+    padding: 10px;
+    margin: 10px; 
+    justify-content: flex-start; 
+   }
+
+   .arrowcontainer {
+    margin-top: 50px;
+    margin-bottom: 50px;
+   }
+
+   .swapbutton {
+    max-height: 40px !important;
+    min-width: 310px !important; 
+    min-height: 40px !important; 
+   }
+
+   .buttoncontainer {
+    margin-top: 2rem;
+   }
+}
