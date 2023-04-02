@@ -793,7 +793,7 @@ class Store {
           `${window.location.origin}/api/pairs`
         )
       ).json();
-      
+      console.log('avaxPriceData = ' + JSON.stringify(avaxPriceData, null, 2))
       //const response = await fetch(`http://localhost:6017https://glacierapi.herokuapp.com/api/baseAssets`, {
       //const response = await fetch(`https://espsofttech.org:6022https://glacierapi.herokuapp.com/api/baseAssets`, {
      // const response = await fetch(`https://glacierapi.herokuapp.com/api/baseAssets`, {
