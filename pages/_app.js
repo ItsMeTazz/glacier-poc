@@ -20,19 +20,6 @@ export default function MyApp({ Component, pageProps }) {
   const [stalbeSwapConfigured, setStableSwapConfigured] = useState(false);
   const [accountConfigured, setAccountConfigured] = useState(false);
 
-  useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
-
-  const changeTheme = (dark) => {
-    // setThemeConfig(dark ? darkTheme : lightTheme);
-    // localStorage.setItem('yearn.finance-dark-mode', dark ? 'dark' : 'light');
-  };
-
   const accountConfigureReturned = () => {
     setAccountConfigured(true);
   };
@@ -40,11 +27,6 @@ export default function MyApp({ Component, pageProps }) {
   const stalbeSwapConfigureReturned = () => {
     setStableSwapConfigured(true);
   };
-
-  useEffect(function () {
-    const localStorageDarkMode = window.localStorage.getItem('yearn.finance-dark-mode');
-    changeTheme(localStorageDarkMode ? localStorageDarkMode === 'dark' : false);
-  }, []);
 
   useEffect(function () {
     stores.emitter.on(ACTIONS.CONFIGURED_SS, stalbeSwapConfigureReturned);
@@ -82,8 +64,8 @@ export default function MyApp({ Component, pageProps }) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         { validateConfigured() && (
-          <Layout changeTheme={changeTheme}>
-            <Component {...pageProps} changeTheme={changeTheme} />
+          <Layout>
+            <Component {...pageProps} />
           </Layout>
         )}
         {!validateConfigured() && <Configure {...pageProps} />}

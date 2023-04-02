@@ -7,9 +7,7 @@ import SnackbarController from "../snackbar";
 export default function Layout({
   children,
   configure,
-  backClicked,
-  changeTheme,
-  title
+  backClicked,  title
 }) {
   return (
     <div className={classes.container}>
@@ -34,7 +32,7 @@ export default function Layout({
       </Head>
       <div className={classes.content}>
         {!configure && (
-          <Header backClicked={backClicked} changeTheme={changeTheme} title={ title } />
+          <Header backClicked={backClicked} title={ title } />
         )}
         <SnackbarController />
         <main>{children}</main>

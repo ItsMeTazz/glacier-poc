@@ -175,11 +175,6 @@ function Header(props) {
     };
   }, []);
 
-  const handleToggleChange = (event, val) => {
-    setDarkMode(val);
-    props.changeTheme(val);
-  };
-
   const onAddressClicked = () => {
     setUnlockOpen(true);
   };
