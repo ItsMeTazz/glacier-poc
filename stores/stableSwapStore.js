@@ -5,8 +5,11 @@ import { v4 as uuidv4 } from "uuid";
 import * as moment from "moment";
 import { formatCurrency } from "../utils";
 import stores from "./";
+import { TOKENS } from "../constants/tokens";
+import routesSync from "../constants/routesSync.json";
 
 import BigNumber from "bignumber.js";
+import fetchDBPairs from "../utils/firestoreHelper";
 
 class Store {
   constructor(dispatcher, emitter) {
@@ -989,7 +992,7 @@ class Store {
       this.setStore({ baseAssets: await this._getBaseAssets() });
       this.setStore({ routeAssets: await this._getRouteAssets() });
       this.setStore({ pairs: await this._getPairs() });
-      this.setStore({ rewardpairs: await this._getRewardPairs() });
+      this.setStore({ rewardpairs: await this._getPairs() });
 
       this.emitter.emit(ACTIONS.UPDATED);
       this.emitter.emit(ACTIONS.CONFIGURED_SS);
@@ -1005,26 +1008,7 @@ class Store {
 
   _getBaseAssets = async () => {
     try {
-      const avaxPriceData = await (
-        await fetch(`${window.location.origin}/api/pairs`)
-      ).json();
-      console.log("avaxPriceData = " + JSON.stringify(avaxPriceData, null, 2));
-      //const response = await fetch(`http://localhost:6017https://glacierapi.herokuapp.com/api/baseAssets`, {
-      //const response = await fetch(`https://espsofttech.org:6022https://glacierapi.herokuapp.com/api/baseAssets`, {
-      // const response = await fetch(`https://glacierapi.herokuapp.com/api/baseAssets`, {
-      const response = await fetch(
-        `https://glacierapi.herokuapp.com/api/baseAssets`,
-        {
-          method: "get",
-          headers: {
-            Authorization: `Basic ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-          },
-        }
-      );
-      const baseAssetsCall = await response.json();
-
-      let baseAssets = baseAssetsCall.data;
-
+      let baseAssets = TOKENS;
       const nativeFTM = {
         address: CONTRACTS.FTM_ADDRESS,
         decimals: CONTRACTS.FTM_DECIMALS,
@@ -1032,9 +1016,7 @@ class Store {
         name: CONTRACTS.FTM_NAME,
         symbol: CONTRACTS.FTM_SYMBOL,
       };
-
       baseAssets.unshift(nativeFTM);
-
       let localBaseAssets = this.getLocalAssets();
 
       return [...baseAssets, ...localBaseAssets];
@@ -1046,21 +1028,7 @@ class Store {
 
   _getRouteAssets = async () => {
     try {
-      // const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/v1/routeAssets`, {
-      //const response = await fetch('https://espsofttech.org:6022/api/routes', {
-      //  const response = await fetch(`/api/routes`, {
-      const response = await fetch(
-        `https://glacierapi.herokuapp.com/api/routes`,
-        {
-          method: "get",
-          headers: {
-            Authorization: `Basic ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-          },
-        }
-      );
-      const routeAssetsCall = await response.json();
-      console.log(routeAssetsCall.data, "<?>?>");
-      return routeAssetsCall.data;
+      return routeAssetsCall;
     } catch (ex) {
       console.log(ex);
       return [];
@@ -1069,42 +1037,9 @@ class Store {
 
   _getPairs = async () => {
     try {
-      // const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/v1/pairs`, {
-      //const response = await fetch('https://espsofttech.org:6022/api/pairs', {
-      // const response = await fetch(`/api/pairs`, {
-      const response = await fetch(
-        `https://glacierapi.herokuapp.com/api/pairs`,
-        {
-          method: "get",
-          headers: {
-            Authorization: `Basic ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-          },
-        }
-      );
-      const pairsCall = await response.json();
-      console.log(pairsCall, "pairsCall");
-      return pairsCall.data;
-    } catch (ex) {
-      console.log(ex);
-      return [];
-    }
-  };
-  _getRewardPairs = async () => {
-    try {
-      // const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/v1/pairs`, {
-      //const response = await fetch('https://espsofttech.org:6022/api/pairs', {
-      //  const response = await fetch(`/api/bribeAndRewardPairs`, {
-      const response = await fetch(
-        `https://glacierapi.herokuapp.com/api/pairs`,
-        {
-          method: "get",
-          headers: {
-            Authorization: `Basic ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-          },
-        }
-      );
-      const pairsCall = await response.json();
-      return pairsCall.data;
+      const dbpairs = await fetchDBPairs();
+      console.log(' dbpairs = ' + dbpairs.length)
+      return dbpairs
     } catch (ex) {
       console.log(ex);
       return [];
@@ -2468,21 +2403,11 @@ class Store {
 
   updatePairsCall = async (web3, account) => {
     try {
-      // const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/v1/updatePairs`, {
-      // const response = await fetch(`/api/updatePairs`, {
-      const response = await fetch(
-        `https://glacierapi.herokuapp.com/api/updatePairs`,
-        {
-          method: "get",
-          headers: {
-            Authorization: `Basic ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-          },
-        }
-      );
-      const pairsCall = await response.json();
-      this.setStore({ pairs: pairsCall.data });
+      await (await fetch(`${window.location.origin}/api/updatePairs`)).json();
+      const pairs = await fetchDBPairs();
+      this.setStore({ pairs: pairs });
 
-      await this._getPairInfo(web3, account, pairsCall.data);
+      await this._getPairInfo(web3, account, pairs);
     } catch (ex) {
       console.log(ex);
     }
@@ -5340,12 +5265,11 @@ class Store {
       const pairsI = this.getStore("rewardpairs");
       const veToken = this.getStore("veToken");
       const govToken = this.getStore("govToken");
-      const thePairs = await this._getRewardPairs();
-      const thepairI = await this._getRewardPairs();
+      const thePairs = await this._getPairs();
       const newThePairsB = thePairs.filter((pair) => {
         return pair && pair.gauge.bribeAddress && pair.gauge.feesAddress;
       });
-      const newThePairsI = thepairI.filter((pair) => {
+      const newThePairsI = thePairs.filter((pair) => {
         return pair && pair.gauge.bribeAddress && pair.gauge.feesAddress;
       });
 

@@ -1,0 +1,6 @@
+{
+    "crons": [{
+      "path": "/api/upadtePairsStats",
+      "schedule": "*/5 * * * *"
+    }]
+  }

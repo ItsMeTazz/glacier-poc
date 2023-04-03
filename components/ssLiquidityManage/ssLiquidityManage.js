@@ -77,7 +77,7 @@ export default function ssLiquidityManage() {
   const [token, setToken] = useState(null);
   const [vestNFTs, setVestNFTs] = useState([]);
 
-  const [slippage, setSlippage] = useState("2");
+  const [slippage, setSlippage] = useState("0.5");
   const [slippageError, setSlippageError] = useState(false);
 
   const ssUpdated = async () => {

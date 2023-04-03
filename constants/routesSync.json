@@ -1,0 +1,18 @@
+[
+	{
+		"chainId": 43114,
+		"name": "Wrapped Avax",
+		"symbol": "WAVAX",
+		"address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7",
+		"decimals": 18,
+		"logoURI": "https://assets.spookyswap.finance/tokens/wFTM.png"
+	},
+	{
+		"chainId": 43114,
+		"name": "Glacier",
+		"symbol": "GLACIER",
+		"address": "0x3712871408a829C5cd4e86DA1f4CE727eFCD28F6",
+		"decimals": 18,
+		"logoURI": "https://assets.coingecko.com/coins/images/23992/large/solidSEX.png"
+	}
+]

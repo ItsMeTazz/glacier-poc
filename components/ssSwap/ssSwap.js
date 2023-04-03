@@ -12,7 +12,7 @@ function Swap() {
               <img src='../images/glacierhero1.png'/>
           </div>
           {/*right side*/}
-        <Grid container className={classes.swapModal} style={{marginTop:"-75px"}}>
+        <Grid container item className={classes.swapModal} style={{marginTop:"-75px"}}>
           <Grid container item>
             {/*title and text*/}
             <Grid item md={6}>
@@ -23,7 +23,7 @@ function Swap() {
               </div>
             </Grid>
           </Grid>
-          <Grid item md={6}>
+          <Grid md={6}>
             {/*swap section*/}
             <div className={classes.stripeContainer}>
             <Paper elevation={0} className={classes.swapContainer}>

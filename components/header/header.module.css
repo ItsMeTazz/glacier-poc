@@ -13,6 +13,29 @@
   border: 0;
   border-radius: 0 !important; */
 }
+
+.headerlogoSide{
+  display: grid;
+  grid-auto-flow: column;
+  gap: 20px;
+  grid-template-columns: min-content max-content auto;
+}
+
+.tvlBar {
+  display: grid;
+  grid-auto-flow: column;
+  border: 1px solid gray;
+  height: fit-content;
+  align-self: center;
+}
+.tvlCell {
+  border: 1px solid gray;
+  padding: 2px 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .mainHeader {
   display: grid;
   width: 100%;
@@ -782,4 +805,10 @@
 .mobileHeader {
   border-bottom: 2px solid gray;
   background-color: black;
+}
+
+@media only screen and (max-width:1800px){
+  .tvlBar{
+    display: none;
+  }
 }

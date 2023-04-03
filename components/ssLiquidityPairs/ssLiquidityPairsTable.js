@@ -712,6 +712,7 @@ const EnhancedTableToolbar = (props) => {
         anchorEl={anchorEl}
         transition
         placement="bottom-end"
+        style={{zIndex: '20'}}
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>

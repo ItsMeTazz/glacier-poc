@@ -48,7 +48,7 @@ function Setup() {
   const [toAssetError, setToAssetError] = useState(false);
   const [toAssetOptions, setToAssetOptions] = useState([]);
 
-  const [slippage, setSlippage] = useState("2");
+  const [slippage, setSlippage] = useState("0.5");
   const [slippageError, setSlippageError] = useState(false);
 
   const [quoteError, setQuoteError] = useState(null);
