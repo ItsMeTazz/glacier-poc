@@ -2,7 +2,7 @@
     "crons": [
         {
             "path": "/api/updatePairsAsync?start=0&end=10",
-            "schedule": "   * * * * *"
+            "schedule": "* * * * *"
         },
         {
             "path": "/api/updatePairsAsync?start=10&end=20",
