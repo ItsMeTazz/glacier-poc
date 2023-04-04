@@ -1038,7 +1038,6 @@ class Store {
   _getPairs = async () => {
     try {
       const dbpairs = await fetchDBPairs();
-      console.log(" dbpairs = " + dbpairs.length);
       return dbpairs;
     } catch (ex) {
       console.log(ex);
