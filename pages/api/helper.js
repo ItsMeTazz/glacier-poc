@@ -494,8 +494,9 @@ export async function updatePairsStats(startIndex, endIndex) {
     }
 
     let updatedPairs = [];
+    console.log('updatePairsStats, from ' + startIndex + ' to ' + endIndex)
     for (let i = startIndex; i < endIndex; i++) {
-      console.log("updating pair for index " + i);
+      // console.log("updating pair for index " + i);
       const pair = await _getPairData(i);
       if (pair) {
         updatedPairs.push(pair);
