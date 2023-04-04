@@ -262,7 +262,7 @@ class Store {
 
       return null;
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       return null;
     }
   };
@@ -321,7 +321,7 @@ class Store {
       this.emitter.emit(ACTIONS.UPDATED);
       return null;
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       return null;
     }
   };
@@ -549,7 +549,7 @@ class Store {
 
       return thePair;
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       return null;
     }
   };
@@ -811,7 +811,7 @@ class Store {
 
       return null;
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       return null;
     }
   };
@@ -845,7 +845,7 @@ class Store {
         this.emitter.emit(ACTIONS.BASE_ASSETS_UPDATED, baseAssets);
       }
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       return null;
     }
   };
@@ -861,7 +861,7 @@ class Store {
 
       return localBaseAssets;
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       return [];
     }
   };
@@ -921,7 +921,7 @@ class Store {
 
       return newBaseAsset;
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       // this.emitter.emit(ACTIONS.ERROR, ex)
       return null;
     }
@@ -979,7 +979,7 @@ class Store {
 
       return multicall.aggregate(calls);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       throw ex;
     }
   };
@@ -1001,7 +1001,7 @@ class Store {
         this.dispatcher.dispatch({ type: ACTIONS.GET_BALANCES });
       }, 1);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       this.emitter.emit(ACTIONS.ERROR, ex);
     }
   };
@@ -1021,7 +1021,7 @@ class Store {
 
       return [...baseAssets, ...localBaseAssets];
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       return [];
     }
   };
@@ -1030,7 +1030,7 @@ class Store {
     try {
       return routeAssetsCall;
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       return [];
     }
   };
@@ -1040,7 +1040,7 @@ class Store {
       const dbpairs = await fetchDBPairs();
       return dbpairs;
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       return [];
     }
   };
@@ -1083,7 +1083,7 @@ class Store {
       await this._getBaseAssetInfo(web3, account);
       await this._getPairInfo(web3, account);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       this.emitter.emit(ACTIONS.ERROR, ex);
     }
   };
@@ -1163,7 +1163,7 @@ class Store {
 
       this._getVestNFTs(web3, account);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       console.log(ex, "<>/////");
     }
   };
@@ -1230,14 +1230,10 @@ class Store {
             pair.claimable1 = BigNumber(claimable1)
               .div(10 ** pair.token1.decimals)
               .toFixed(6);
-            console.log("totalSupply:", totalSupply);
-            console.log("reserves:", reserves);
-            console.log("balanceOf:", balanceOf);
 
             return pair;
           } catch (ex) {
-            console.log(pair);
-            console.log(ex);
+            console.error(ex);
             return pair;
           }
         })
@@ -1327,7 +1323,7 @@ class Store {
 
             console.log("EXCEPTION 2");
             console.log(pair);
-            console.log(ex);
+            console.error(ex);
             return pair;
           }
         })
@@ -1340,7 +1336,7 @@ class Store {
       this.setStore({ pairs: ps1 });
       this.emitter.emit(ACTIONS.UPDATED);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
     }
   };
 
@@ -1386,7 +1382,7 @@ class Store {
         pairContract.methods.claimable1(account.address),
       ]);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       throw ex;
     }
   };
@@ -1434,7 +1430,7 @@ class Store {
         pairContract.methods.claimable1(account.address),
       ]);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       throw ex;
     }
   };
@@ -1486,7 +1482,7 @@ class Store {
         gaugesContract.methods.weights(pair.address),
       ]);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       throw ex;
     }
   };
@@ -1522,7 +1518,7 @@ class Store {
       this.setStore({ baseAssets });
       this.emitter.emit(ACTIONS.UPDATED);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
     }
   };
 
@@ -1570,7 +1566,7 @@ class Store {
 
       return multicall.aggregate(balanceOfCalls);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       throw ex;
     }
   };
@@ -1613,7 +1609,7 @@ class Store {
 
       return multicall.aggregate(whitelistedCalls);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       throw ex;
     }
   };
@@ -1668,7 +1664,7 @@ class Store {
 
       this.emitter.emit(ACTIONS.ASSET_SEARCHED, newBaseAsset);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       this.emitter.emit(ACTIONS.ERROR, ex);
     }
   };
@@ -1947,6 +1943,7 @@ class Store {
         CONTRACTS.ROUTER_ABI,
         CONTRACTS.ROUTER_ADDRESS
       );
+      console.log('[_callContractWait] A')
       this._callContractWait(
         web3,
         routerContract,
@@ -1982,6 +1979,8 @@ class Store {
             CONTRACTS.VOTER_ABI,
             CONTRACTS.VOTER_ADDRESS
           );
+          console.log('[_callContractWait] B')
+
           this._callContractWait(
             web3,
             gaugesContract,
@@ -2337,6 +2336,8 @@ class Store {
         CONTRACTS.ROUTER_ABI,
         CONTRACTS.ROUTER_ADDRESS
       );
+      console.log('[_callContractWait] C')
+
       this._callContractWait(
         web3,
         routerContract,
@@ -2370,6 +2371,8 @@ class Store {
             CONTRACTS.VOTER_ABI,
             CONTRACTS.VOTER_ADDRESS
           );
+          console.log('[_callContractWait] D')
+
           this._callContractWait(
             web3,
             gaugesContract,
@@ -2408,7 +2411,7 @@ class Store {
 
       await this._getPairInfo(web3, account, pairs);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
     }
   };
 
@@ -2650,7 +2653,8 @@ class Store {
           deadline,
         ];
         sendValue = sendAmount1;
-      }
+      }      console.log('[_callContractWait] E')
+
 
       this._callContractWait(
         web3,
@@ -2747,6 +2751,8 @@ class Store {
       const allowanceCallsPromises = [];
 
       if (parseFloat(stakeAllowance) < parseFloat(balanceOf)) {
+
+        console.log('PAIR COntract address = ' + pair.address)
         const stakePromise = new Promise((resolve, reject) => {
           context._callContractWait(
             web3,
@@ -2784,7 +2790,8 @@ class Store {
       if (token && token.id) {
         sendTok = token.id;
       }
-
+      console.log('[_callContractWait] F')
+      console.log('ADDRESS = ' + pair.gauge.address)
       this._callContractWait(
         web3,
         gaugeContract,
@@ -3083,6 +3090,7 @@ class Store {
         CONTRACTS.GAUGE_ABI,
         pair.gauge.address
       );
+      console.log('-- pair.gauge.address = ' + pair.gauge.address)
 
       console.log("10");
 
@@ -3127,8 +3135,6 @@ class Store {
         sendValue = sendAmount1;
       }
 
-      console.log("11");
-
       this._callContractWait(
         web3,
         routerContract,
@@ -3145,14 +3151,19 @@ class Store {
             return this.emitter.emit(ACTIONS.ERROR, err);
           }
 
-          // const balanceOf = await pairContract.methods.balanceOf(account.address).call()
+          const balanceOf = await pairContract.methods.balanceOf(account.address).call()
+          console.log('updated balance = ' + balanceOf)
           let sendTok = "0";
           if (token && token.id) {
             sendTok = token.id;
           }
           console.log(pair.gauge.address, [balanceOf, sendTok]);
-          console.log("12");
 
+          console.log('-- balanceOf = ' + balanceOf)
+          console.log('-- sendTok = ' + sendTok)
+          console.log('-- account = ' + account)
+          console.log('-- gasPrice = ' + gasPrice)
+          console.log('-- stakeTXID = ' + stakeTXID)
           this._callContractWait(
             web3,
             gaugeContract,
@@ -3170,7 +3181,7 @@ class Store {
               }
 
               this._getPairInfo(web3, account);
-              console.log("12");
+              console.log("_callContractWaitB - 12");
 
               this.emitter.emit(ACTIONS.ADD_LIQUIDITY_AND_STAKED);
             }
@@ -3914,6 +3925,7 @@ class Store {
         CONTRACTS.VOTER_ABI,
         CONTRACTS.VOTER_ADDRESS
       );
+
       this._callContractWait(
         web3,
         gaugesContract,
@@ -4399,7 +4411,7 @@ class Store {
       this.setStore({ baseAssets: ba });
       this.emitter.emit(ACTIONS.UPDATED);
     } catch (ex) {
-      console.log(ex);
+      console.error(ex);
       return null;
     }
   };
@@ -4556,6 +4568,7 @@ class Store {
           CONTRACTS.ERC20_ABI,
           govToken.address
         );
+
         const tokenPromise = new Promise((resolve, reject) => {
           this._callContractWait(
             web3,
@@ -4593,6 +4606,7 @@ class Store {
         CONTRACTS.VE_TOKEN_ADDRESS
       );
       let unlockTime1 = unlockTime;
+
       this._callContractWait(
         web3,
         veTokenContract,
@@ -5063,7 +5077,6 @@ class Store {
       }
 
       const { asset, amount, gauge } = payload.content;
-      console.log({ asset, amount, gauge, account });
       // ADD TRNASCTIONS TO TRANSACTION QUEUE DISPLAY
       let allowanceTXID = this.getTXUUID();
       let bribeTXID = this.getTXUUID();
@@ -5092,7 +5105,6 @@ class Store {
         gauge,
         account
       );
-      console.log({ allowance });
       if (BigNumber(allowance).lt(amount)) {
         this.emitter.emit(ACTIONS.TX_STATUS, {
           uuid: allowanceTXID,
@@ -5116,6 +5128,7 @@ class Store {
           CONTRACTS.ERC20_ABI,
           asset.address
         );
+
 
         const tokenPromise = new Promise((resolve, reject) => {
           this._callContractWait(
@@ -5149,6 +5162,7 @@ class Store {
         CONTRACTS.BRIBE_ABI,
         gauge.gauge.bribeAddress
       );
+
 
       const sendAmount = BigNumber(amount)
         .times(10 ** asset.decimals)
@@ -5325,7 +5339,6 @@ class Store {
           newThePairsB.map(async (pair) => {
             const bribesEarned1 = await Promise.all(
               pair.gauge.bribes.map(async (bribe) => {
-                console.log(bribesEarned, "bribe");
 
                 const bribeContract = new web3.eth.Contract(
                   CONTRACTS.BRIBE_ABI,
@@ -5337,7 +5350,6 @@ class Store {
                     .earned(bribe.token.address, tokenID)
                     .call(),
                 ]);
-                console.log("earned", earned);
                 bribe.earned = BigNumber(earned)
                   .div(10 ** bribe.token.decimals)
                   .toFixed(6);
@@ -5499,11 +5511,7 @@ class Store {
           filteredRewards.push(pair);
         }
       }
-      console.log(filteredBribes, "filteredBribes");
-      console.log(filteredFees, "filteredFees");
-      console.log(filteredRewards, "filteredRewards");
-      console.log(veDistReward, "veDistReward");
-      console.log(filteredFeesBribe, "filteredFeesBribe");
+
       const rewards = {
         bribes: filteredBribes,
         fees: filteredFees,
@@ -6264,6 +6272,7 @@ class Store {
       this.emitter.emit(ACTIONS.ERROR, ex);
     }
   };
+
   _callContractWait = async (
     web3,
     contract,
@@ -6278,41 +6287,22 @@ class Store {
     paddGasCost,
     sendValue = 0
   ) => {
-    console.log(
-      web3,
-      contract,
-      method,
-      params,
-      account,
-      gasPrice,
-      dispatchEvent,
-      dispatchContent,
-      uuid,
-      callback,
-      paddGasCost,
-      sendValue
-    );
+
     let count = await web3.eth.getTransactionCount(account.address, "pending");
     //estimate gas
-    this.emitter.emit(ACTIONS.TX_PENDING, { uuid });
 
-    const gasCost = await contract.methods[method](...params)
+  
+    this.emitter.emit(ACTIONS.TX_PENDING, { uuid });
+ 
+      
+    await contract.methods[method](...params)
       .estimateGas({ from: account.address, value: sendValue })
       .then((gasAmount) => {
-        console.log("Contract object:", contract);
-        console.log("Method name:", method);
-        console.log("Params:", params);
+      
         const context = this;
         let sendGasAmount = BigNumber(gasAmount).times(1.5).toFixed(0);
         let sendGasPrice = BigNumber(gasPrice).times(1.5).toFixed(0);
-        console.log({ sendGasAmount, sendGasPrice });
-        console.log({
-          gasAmount,
-          sendValue,
-          gasAmount,
-          sendGasAmount,
-          sendGasPrice,
-        });
+      
         contract.methods[method](...params)
           .send({
             nonce: count,
@@ -6333,7 +6323,9 @@ class Store {
             });
             callback(null, receipt.transactionHash);
 
+
             if (dispatchEvent) {
+
               context.dispatcher.dispatch({
                 type: dispatchEvent,
                 content: dispatchContent,
@@ -6359,6 +6351,7 @@ class Store {
             }
           })
           .catch((error) => {
+            console.error(error)
             if (!error.toString().includes("-32601")) {
               if (error.message) {
                 context.emitter.emit(ACTIONS.TX_REJECTED, {
@@ -6373,7 +6366,7 @@ class Store {
           });
       })
       .catch((ex) => {
-        console.log(ex);
+        console.error(ex);
         if (ex.message) {
           this.emitter.emit(ACTIONS.TX_REJECTED, { uuid, error: ex.message });
           return callback(null, ex.message);
@@ -6400,21 +6393,10 @@ class Store {
     paddGasCost,
     sendValue = null
   ) => {
-    console.log(web3);
-    console.log(contract);
-    console.log(method);
-    console.log(params);
-    console.log(account);
-    console.log({ gasPrice });
-    console.log(dispatchEvent);
-    console.log(dispatchContent);
-    console.log(uuid);
-    console.log(callback);
-    console.log(paddGasCost);
+
     const paircon = await pairContract.methods
       .balanceOf(account.address)
       .call();
-    console.log(paircon, "paircon");
     //  let count = await web3.eth.getTransactionCount(account.address, 'pending');
 
     //  //estimate gas
@@ -6482,7 +6464,7 @@ class Store {
     //   })
     //   .catch((ex) => {
     //     //alert("hiii")
-    //     console.log(ex)
+    //     console.error(ex)
     //     if (ex.message) {
     //       this.emitter.emit(ACTIONS.TX_REJECTED, { uuid, error: ex.message })
     //       return callback(null, ex.message)

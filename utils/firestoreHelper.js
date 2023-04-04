@@ -29,26 +29,25 @@ async function getDb() {
     return db;
   }
   const app = initializeApp(firebaseConfig);
-  // const auth = getAuth(app);
-
-  // const username = process.env.NEXT_PUBLIC_FB_USERNAME;
-  // const pwd = process.env.NEXT_PUBLIC_FB_PASS;
-
-  // if (username && pwd) {
-  //   try {
-  //     const userCredential = await signInWithEmailAndPassword(
-  //       auth,
-  //       username,
-  //       pwd
-  //     );
-  // if (userCredential) {
-  db = getFirestore(app);
-  // db = getDatabase(initializeApp(firebaseConfig));
-  //   }
-  // } catch (e) {
-  //   console.error(e);
-  // }
-  // }
+  const auth = getAuth(app);
+  const username = process.env.NEXT_PUBLIC_FB_USERNAME;
+  const pwd = process.env.NEXT_PUBLIC_FB_PASS;
+  if (username && pwd) {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        username,
+        pwd
+      );
+      if (userCredential) {
+        db = getFirestore(app);
+        // if switching to realtime db
+        // db = getDatabase(initializeApp(firebaseConfig));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
   return db;
 }
 
@@ -59,10 +58,11 @@ export default async function fetchDBPairs() {
     const pairsRef = collection(fireDb, "pairs");
     const q = query(pairsRef);
     const pairsSnapshot = await getDocs(q);
-    pairsSnapshot.forEach(async (pair) => {
+    pairsSnapshot.forEach((pair) => {
       data.push(pair.data());
     });
 
+    // Code for realtime db
     // const snapshot = await get(ref(db, "/pairs"));
     // snapshot.forEach((pair) => {
     //   const pairData = pair.val();

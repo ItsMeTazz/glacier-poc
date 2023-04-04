@@ -1,7 +1,6 @@
 import Head from "next/head";
 import classes from "./layout.module.css";
 import Header from "../header";
-import Navigation from "../navigation";
 import SnackbarController from "../snackbar";
 import Image from "next/image";
 
@@ -9,7 +8,7 @@ export default function Layout({ children, configure, backClicked, title }) {
   return (
     <div className={classes.container}>
       <div className={classes.backgroundImageContainer}>
-        <Image src={"/images/bg2.svg"} alt="background" fill />
+        <Image src={"/images/bg2.svg"} alt="background" layout="fill" />
       </div>
 
       <Head>
