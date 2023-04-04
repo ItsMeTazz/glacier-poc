@@ -53,7 +53,6 @@ async function getDb() {
 }
 
 export default async function fetchDBPairs() {
-  console.log("[fetchDBPairs] StartTime = " + Date.now());
   const fireDb = await getDb();
   let data = [];
   if (fireDb) {
@@ -70,7 +69,6 @@ export default async function fetchDBPairs() {
     //   data.push(pairData);
     // });
   }
-  console.log("[fetchDBPairs] EndTime = " + Date.now());
 
   return data;
 }
