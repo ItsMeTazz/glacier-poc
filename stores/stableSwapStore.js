@@ -1038,8 +1038,8 @@ class Store {
   _getPairs = async () => {
     try {
       const dbpairs = await fetchDBPairs();
-      console.log(' dbpairs = ' + dbpairs.length)
-      return dbpairs
+      console.log(" dbpairs = " + dbpairs.length);
+      return dbpairs;
     } catch (ex) {
       console.log(ex);
       return [];
@@ -2815,7 +2815,7 @@ class Store {
   addLiquidityAndStake = async (payload) => {
     try {
       const context = this;
-
+      console.log("1");
       const account = stores.accountStore.getStore("account");
       if (!account) {
         console.warn("account not found");
@@ -2827,6 +2827,7 @@ class Store {
         console.warn("web3 not found");
         return null;
       }
+      console.log("2");
 
       const {
         token0,
@@ -2905,6 +2906,7 @@ class Store {
           status: "DONE",
         });
       }
+      console.log("3");
 
       if (token1.address !== "AVAX") {
         allowance1 = await this._getDepositAllowance(web3, token1, account);
@@ -2928,6 +2930,7 @@ class Store {
           status: "DONE",
         });
       }
+      console.log("4");
 
       const stakeAllowance = await this._getStakeAllowance(web3, pair, account);
       const pairContract = new web3.eth.Contract(
@@ -2950,6 +2953,7 @@ class Store {
           status: "DONE",
         });
       }
+      console.log("5");
 
       const gasPrice = await stores.accountStore.getGasPrice();
 
@@ -2961,6 +2965,7 @@ class Store {
           CONTRACTS.ERC20_ABI,
           token0.address
         );
+        console.log("6");
 
         const tokenPromise = new Promise((resolve, reject) => {
           context._callContractWait(
@@ -2986,6 +2991,8 @@ class Store {
 
         allowanceCallsPromises.push(tokenPromise);
       }
+
+      console.log("7");
 
       if (BigNumber(allowance1).lt(amount1)) {
         const tokenContract = new web3.eth.Contract(
@@ -3018,6 +3025,8 @@ class Store {
         allowanceCallsPromises.push(tokenPromise);
       }
 
+      console.log("8");
+
       if (parseFloat(stakeAllowance) < parseFloat(balanceOf)) {
         //const pairContract = new web3.eth.Contract(CONTRACTS.ERC20_ABI, pair.address)
 
@@ -3045,6 +3054,7 @@ class Store {
 
         allowanceCallsPromises.push(stakePromise);
       }
+      console.log("9");
 
       const done = await Promise.all(allowanceCallsPromises);
 
@@ -3074,6 +3084,8 @@ class Store {
         CONTRACTS.GAUGE_ABI,
         pair.gauge.address
       );
+
+      console.log("10");
 
       let func = "addLiquidity";
       let params = [
@@ -3116,6 +3128,8 @@ class Store {
         sendValue = sendAmount1;
       }
 
+      console.log("11");
+
       this._callContractWait(
         web3,
         routerContract,
@@ -3128,6 +3142,7 @@ class Store {
         depositTXID,
         async (err) => {
           if (err) {
+            console.error(err);
             return this.emitter.emit(ACTIONS.ERROR, err);
           }
 
@@ -3137,6 +3152,7 @@ class Store {
             sendTok = token.id;
           }
           console.log(pair.gauge.address, [balanceOf, sendTok]);
+          console.log("12");
 
           this._callContractWait(
             web3,
@@ -3150,10 +3166,12 @@ class Store {
             stakeTXID,
             (err) => {
               if (err) {
+                console.error(err);
                 return this.emitter.emit(ACTIONS.ERROR, err);
               }
 
               this._getPairInfo(web3, account);
+              console.log("12");
 
               this.emitter.emit(ACTIONS.ADD_LIQUIDITY_AND_STAKED);
             }

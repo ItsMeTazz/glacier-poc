@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Skeleton from '@material-ui/lab/Skeleton';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Skeleton from "@material-ui/lab/Skeleton";
 import {
   Paper,
   Button,
@@ -24,28 +24,27 @@ import {
   Grid,
   Switch,
   Select,
-  MenuItem
-} from '@material-ui/core';
+  MenuItem,
+} from "@material-ui/core";
 import { useRouter } from "next/router";
-import BigNumber from 'bignumber.js';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import BigNumber from "bignumber.js";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 
-import { formatCurrency } from '../../utils';
-import stores from '../../stores'
-import { ACTIONS } from '../../stores/constants';
-import { AltRouteTwoTone } from '@mui/icons-material';
+import { formatCurrency } from "../../utils";
+import stores from "../../stores";
+import { ACTIONS } from "../../stores/constants";
+import { AltRouteTwoTone } from "@mui/icons-material";
 
 function descendingComparator(a, b, orderBy) {
   if (!a || !b) {
     return 0;
   }
 
-  let aAmount = 0
-  let bAmount = 0
+  let aAmount = 0;
+  let bAmount = 0;
 
   switch (orderBy) {
-    case 'reward':
-
+    case "reward":
       if (b.rewardType < a.rewardType) {
         return -1;
       }
@@ -60,18 +59,17 @@ function descendingComparator(a, b, orderBy) {
       }
       return 0;
 
-    case 'balance':
-
-      if(a.rewardType === 'Bribe') {
-        aAmount = a.gauge.balance
+    case "balance":
+      if (a.rewardType === "Bribe") {
+        aAmount = a.gauge.balance;
       } else {
-        aAmount = a.balance
+        aAmount = a.balance;
       }
 
-      if(b.rewardType === 'Bribe') {
-        bAmount = b.gauge.balance
+      if (b.rewardType === "Bribe") {
+        bAmount = b.gauge.balance;
       } else {
-        bAmount = b.balance
+        bAmount = b.balance;
       }
 
       if (BigNumber(bAmount).lt(aAmount)) {
@@ -82,18 +80,17 @@ function descendingComparator(a, b, orderBy) {
       }
       return 0;
 
-    case 'earned':
-
-      if(a.rewardType === 'Bribe') {
-        aAmount = a.gauge.bribes.length
+    case "earned":
+      if (a.rewardType === "Bribe") {
+        aAmount = a.gauge.bribes.length;
       } else {
-        aAmount = 2
+        aAmount = 2;
       }
 
-      if(b.rewardType === 'Bribe') {
-        bAmount = b.gauge.bribes.length
+      if (b.rewardType === "Bribe") {
+        bAmount = b.gauge.bribes.length;
       } else {
-        bAmount = 2
+        bAmount = 2;
       }
 
       if (BigNumber(bAmount).lt(aAmount)) {
@@ -105,12 +102,14 @@ function descendingComparator(a, b, orderBy) {
       return 0;
 
     default:
-      return 0
+      return 0;
   }
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc' ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
+  return order === "desc"
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 function stableSort(array, comparator) {
@@ -124,24 +123,24 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'reward', numeric: false, disablePadding: false, label: 'Pool' },
+  { id: "reward", numeric: false, disablePadding: false, label: "Pool" },
   {
-    id: 'balance',
+    id: "balance",
     numeric: true,
     disablePadding: false,
-    label: 'Your Position',
+    label: "Your Position",
   },
   {
-    id: 'earned',
+    id: "earned",
     numeric: true,
     disablePadding: false,
-    label: 'You Earned',
+    label: "You Earned",
   },
   {
-    id: 'bruh',
+    id: "bruh",
     numeric: true,
     disablePadding: false,
-    label: 'Actions',
+    label: "Actions",
   },
 ];
 
@@ -158,13 +157,23 @@ function EnhancedTableHead(props) {
           <TableCell
             className={classes.overrideTableHead}
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={'normal'}
+            align={headCell.numeric ? "right" : "left"}
+            padding={"normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            <TableSortLabel active={orderBy === headCell.id} direction={orderBy === headCell.id ? order : 'asc'} onClick={createSortHandler(headCell.id)}>
-              <Typography variant='h5' className={ classes.headerText }>{headCell.label}</Typography>
-              {orderBy === headCell.id ? <span className={classes.visuallyHidden}>{order === 'desc' ? 'sorted descending' : 'sorted ascending'}</span> : null}
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : "asc"}
+              onClick={createSortHandler(headCell.id)}
+            >
+              <Typography variant="h5" className={classes.headerText}>
+                {headCell.label}
+              </Typography>
+              {orderBy === headCell.id ? (
+                <span className={classes.visuallyHidden}>
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                </span>
+              ) : null}
             </TableSortLabel>
           </TableCell>
         ))}
@@ -176,236 +185,235 @@ function EnhancedTableHead(props) {
 EnhancedTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
 };
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
   },
   assetTableRow: {
-    '&:hover': {
-      background: 'rgba(104,108,122,0.05)',
+    "&:hover": {
+      background: "rgba(104,108,122,0.05)",
     },
   },
   paper: {
-    width: '100%',
+    width: "100%",
     marginBottom: theme.spacing(2),
   },
   visuallyHidden: {
     border: 0,
-    clip: 'rect(0 0 0 0)',
+    clip: "rect(0 0 0 0)",
     height: 1,
     margin: -1,
-    overflow: 'hidden',
+    overflow: "hidden",
     padding: 0,
-    position: 'absolute',
+    position: "absolute",
     top: 20,
     width: 1,
   },
   inline: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
   inlineEnd: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end'
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
   icon: {
-    marginRight: '12px',
+    marginRight: "12px",
   },
   textSpaced: {
-    lineHeight: '1.5',
-    fontWeight: '200',
-    fontSize: '12px'
+    lineHeight: "1.5",
+    fontWeight: "200",
+    fontSize: "12px",
   },
   textSpacedPadded: {
-    paddingLeft: '10px',
-    lineHeight: '1.5',
-    fontWeight: '200',
-    fontSize: '12px'
+    paddingLeft: "10px",
+    lineHeight: "1.5",
+    fontWeight: "200",
+    fontSize: "12px",
   },
   headerText: {
-    fontWeight: '200',
-    fontSize: '12px'
+    fontWeight: "200",
+    fontSize: "12px",
   },
   cell: {},
   cellSuccess: {
-    color: '#4eaf0a',
+    color: "#4eaf0a",
   },
   cellAddress: {
-    cursor: 'pointer',
+    cursor: "pointer",
   },
   aligntRight: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
   },
   skelly: {
-    marginBottom: '12px',
-    marginTop: '12px',
+    marginBottom: "12px",
+    marginTop: "12px",
   },
   skelly1: {
-    marginBottom: '12px',
-    marginTop: '24px',
+    marginBottom: "12px",
+    marginTop: "24px",
   },
   skelly2: {
-    margin: '12px 6px',
+    margin: "12px 6px",
   },
   tableBottomSkelly: {
-    display: 'flex',
-    justifyContent: 'flex-end',
+    display: "flex",
+    justifyContent: "flex-end",
   },
   assetInfo: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
     flex: 1,
-    padding: '24px',
-    width: '100%',
-    flexWrap: 'wrap',
-    borderBottom: '1px solid rgba(104, 108, 122, 0.25)',
-    background: 'radial-gradient(circle, rgba(63,94,251,0.7) 0%, rgba(47,128,237,0.7) 48%) rgba(63,94,251,0.7) 100%',
+    padding: "24px",
+    width: "100%",
+    flexWrap: "wrap",
+    borderBottom: "1px solid rgba(104, 108, 122, 0.25)",
+    background:
+      "radial-gradient(circle, rgba(63,94,251,0.7) 0%, rgba(47,128,237,0.7) 48%) rgba(63,94,251,0.7) 100%",
   },
   assetInfoError: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
     flex: 1,
-    padding: '24px',
-    width: '100%',
-    flexWrap: 'wrap',
-    borderBottom: '1px rgba(104, 108, 122, 0.25)',
-    background: '#dc3545',
+    padding: "24px",
+    width: "100%",
+    flexWrap: "wrap",
+    borderBottom: "1px rgba(104, 108, 122, 0.25)",
+    background: "#dc3545",
   },
   infoField: {
     flex: 1,
   },
   flexy: {
-    padding: '6px 0px',
+    padding: "6px 0px",
   },
   overrideCell: {
-    padding: '0px',
+    padding: "0px",
   },
   hoverRow: {
-    cursor: 'pointer',
+    cursor: "pointer",
   },
   statusLiquid: {
-    color: '#dc3545',
+    color: "#dc3545",
   },
   statusWarning: {
-    color: '#FF9029',
+    color: "#FF9029",
   },
   statusSafe: {
-    color: 'green',
+    color: "green",
   },
   imgLogo: {
-    border: '3px solid rgb(1,1,27)',// rgb(25, 33, 56)',
-    borderRadius: '30px',
+    border: "3px solid rgb(1,1,27)", // rgb(25, 33, 56)',
+    borderRadius: "30px",
   },
   img1Logo: {
-    position: 'absolute',
-    left: '0px',
-    top: '0px',
-    border: '3px solid rgb(1,1,27)',//rgb(25, 33, 56)',
-    borderRadius: '30px',
+    position: "absolute",
+    left: "0px",
+    top: "0px",
+    border: "3px solid rgb(1,1,27)", //rgb(25, 33, 56)',
+    borderRadius: "30px",
   },
   img2Logo: {
-    position: 'absolute',
-    left: '23px',
-    zIndex: '1',
-    top: '0px',
-    border: '3px solid rgb(1,1,27)',//rgb(25, 33, 56)',
-    borderRadius: '30px',
+    position: "absolute",
+    left: "23px",
+    zIndex: "1",
+    top: "0px",
+    border: "3px solid rgb(1,1,27)", //rgb(25, 33, 56)',
+    borderRadius: "30px",
   },
   overrideTableHead: {
-    borderBottom: '1px solid rgba(126,153,176,0.15) !important',
+    borderBottom: "1px solid rgba(126,153,176,0.15) !important",
   },
   doubleImages: {
-    display: 'flex',
-    position: 'relative',
-    width: '70px',
-    height: '35px'
+    display: "flex",
+    position: "relative",
+    width: "70px",
+    height: "35px",
   },
   searchContainer: {
     flex: 1,
-    minWidth: '300px',
-    marginRight: '30px',
+    minWidth: "300px",
+    marginRight: "30px",
   },
   buttonOverride: {
-    color: 'rgb(6, 211, 215)',
-    background: 'rgb(23, 52, 72)',
-    fontWeight: '700',
-    '&:hover': {
-      background: 'rgb(19, 44, 60)'
+    color: "rgb(6, 211, 215)",
+    background: "rgb(23, 52, 72)",
+    fontWeight: "700",
+    "&:hover": {
+      background: "rgb(19, 44, 60)",
     },
   },
   toolbar: {
-    margin: '24px 0px',
-    padding: '0px',
+    margin: "24px 0px",
+    padding: "0px",
   },
   tableContainer: {
-    border: '2px solid gray',
-    borderRadius:"0",
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 1)',
+    border: "2px solid gray",
+    borderRadius: "0",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    backgroundColor: "rgba(0, 0, 0, 1)",
   },
   filterButton: {
-    background: '#111729',
-    border: '1px solid rgba(126,153,176,0.3)',
-    color: '#06D3D7',
-    marginRight: '30px',
+    background: "#111729",
+    border: "1px solid rgba(126,153,176,0.3)",
+    color: "#06D3D7",
+    marginRight: "30px",
   },
   actionButtonText: {
-    fontSize: '15px',
-    fontWeight: '700',
+    fontSize: "15px",
+    fontWeight: "700",
   },
   filterContainer: {
-    background: '#212b48',
-    minWidth: '300px',
-    marginTop: '15px',
-    borderRadius: '10px',
-    padding: '20px',
-    boxShadow: '0 10px 20px 0 rgba(0,0,0,0.2)',
-    border: '1px solid rgba(126,153,176,0.2)',
+    background: "#212b48",
+    minWidth: "300px",
+    marginTop: "15px",
+    borderRadius: "10px",
+    padding: "20px",
+    boxShadow: "0 10px 20px 0 rgba(0,0,0,0.2)",
+    border: "1px solid rgba(126,153,176,0.2)",
   },
   alignContentRight: {
-    textAlign: 'right',
+    textAlign: "right",
   },
   labelColumn: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
   filterLabel: {
-    fontSize: '14px',
+    fontSize: "14px",
   },
   filterListTitle: {
-    marginBottom: '10px',
-    paddingBottom: '20px',
-    borderBottom: '1px solid rgba(126,153,176,0.2)',
+    marginBottom: "10px",
+    paddingBottom: "20px",
+    borderBottom: "1px solid rgba(126,153,176,0.2)",
   },
   infoIcon: {
-    color: '#06D3D7',
-    fontSize: '16px',
-    marginLeft: '10px',
+    color: "#06D3D7",
+    fontSize: "16px",
+    marginLeft: "10px",
   },
   symbol: {
-    minWidth: '40px'
+    minWidth: "40px",
   },
 }));
 
 export default function EnhancedTable({ rewards, vestNFTs, tokenID }) {
-
   const classes = useStyles();
-  const router = useRouter();
 
-  const [order, setOrder] = React.useState('desc');
-  const [orderBy, setOrderBy] = React.useState('balance');
+  const [order, setOrder] = React.useState("desc");
+  const [orderBy, setOrderBy] = React.useState("balance");
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -419,365 +427,640 @@ export default function EnhancedTable({ rewards, vestNFTs, tokenID }) {
   };
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
   if (!rewards) {
     return (
       <div className={classes.root}>
-        <Skeleton variant="rect" width={'100%'} height={40} className={classes.skelly1} />
-        <Skeleton variant="rect" width={'100%'} height={70} className={classes.skelly} />
-        <Skeleton variant="rect" width={'100%'} height={70} className={classes.skelly} />
-        <Skeleton variant="rect" width={'100%'} height={70} className={classes.skelly} />
-        <Skeleton variant="rect" width={'100%'} height={70} className={classes.skelly} />
-        <Skeleton variant="rect" width={'100%'} height={70} className={classes.skelly} />
+        <Skeleton
+          variant="rect"
+          width={"100%"}
+          height={40}
+          className={classes.skelly1}
+        />
+        <Skeleton
+          variant="rect"
+          width={"100%"}
+          height={70}
+          className={classes.skelly}
+        />
+        <Skeleton
+          variant="rect"
+          width={"100%"}
+          height={70}
+          className={classes.skelly}
+        />
+        <Skeleton
+          variant="rect"
+          width={"100%"}
+          height={70}
+          className={classes.skelly}
+        />
+        <Skeleton
+          variant="rect"
+          width={"100%"}
+          height={70}
+          className={classes.skelly}
+        />
+        <Skeleton
+          variant="rect"
+          width={"100%"}
+          height={70}
+          className={classes.skelly}
+        />
       </div>
     );
   }
 
   const onClaim = (reward) => {
-    
-    if(reward.rewardType === 'Bribe') {
-      stores.dispatcher.dispatch({ type: ACTIONS.CLAIM_BRIBE, content: { pair: reward, tokenID } })
-    }else if (reward.rewardType === 'VoterFees') {
-      stores.dispatcher.dispatch({ type: ACTIONS.CLAIM_FEES_BRIBE, content: { pair: reward, tokenID } })
-    } else if (reward.rewardType === 'Fees') {
-      stores.dispatcher.dispatch({ type: ACTIONS.CLAIM_PAIR_FEES, content: { pair: reward, tokenID } })
-    } else if (reward.rewardType === 'Reward') {
-      stores.dispatcher.dispatch({ type: ACTIONS.CLAIM_REWARD, content: { pair: reward, tokenID } })
-    } else if (reward.rewardType === 'Distribution') {
-      stores.dispatcher.dispatch({ type: ACTIONS.CLAIM_VE_DIST, content: { tokenID } })
+    if (reward.rewardType === "Bribe") {
+      stores.dispatcher.dispatch({
+        type: ACTIONS.CLAIM_BRIBE,
+        content: { pair: reward, tokenID },
+      });
+    } else if (reward.rewardType === "VoterFees") {
+      stores.dispatcher.dispatch({
+        type: ACTIONS.CLAIM_FEES_BRIBE,
+        content: { pair: reward, tokenID },
+      });
+    } else if (reward.rewardType === "Fees") {
+      stores.dispatcher.dispatch({
+        type: ACTIONS.CLAIM_PAIR_FEES,
+        content: { pair: reward, tokenID },
+      });
+    } else if (reward.rewardType === "Reward") {
+      stores.dispatcher.dispatch({
+        type: ACTIONS.CLAIM_REWARD,
+        content: { pair: reward, tokenID },
+      });
+    } else if (reward.rewardType === "Distribution") {
+      stores.dispatcher.dispatch({
+        type: ACTIONS.CLAIM_VE_DIST,
+        content: { tokenID },
+      });
     }
   };
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rewards.length - page * rowsPerPage);
-console.log(rewards,">>>rewards<<<")
   return (
-
     <div className={classes.root}>
-      <Paper elevation={0} className={ classes.tableContainer}>
+      <Paper elevation={0} className={classes.tableContainer}>
         <TableContainer>
-          <Table className={classes.table} aria-labelledby='tableTitle' size={'medium'} aria-label='enhanced table'>
-            <EnhancedTableHead classes={classes} order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
+          <Table
+            className={classes.table}
+            aria-labelledby="tableTitle"
+            size={"medium"}
+            aria-label="enhanced table"
+          >
+            <EnhancedTableHead
+              classes={classes}
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+            />
             <TableBody>
               {stableSort(rewards, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                if (!row) {
-                  return null;
-                }
+                  if (!row) {
+                    return null;
+                  }
 
-                return (
-                  <TableRow
-                    key={'ssRewardsTable'+index}
-                    className={classes.assetTableRow}
-                  >
-                    <TableCell className={classes.cell}>
-                      { ['Bribe', 'Fees', 'Reward','VoterFees'].includes(row.rewardType) &&
-                        <div className={classes.inline}>
-                          <div className={ classes.doubleImages}>
-                            <img
-                              className={classes.img1Logo}
-                              src={ (row && row.token0 && row.token0.logoURI) ? row.token0.logoURI : `` }
-                              width='37'
-                              height='37'
-                              alt=''
-                              onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = '/tokens/unknown-logo.png';
-                              }}
-                            />
-                            <img
-                              className={classes.img2Logo}
-                              src={ (row && row.token1 && row.token1.logoURI) ? row.token1.logoURI : `` }
-                              width='37'
-                              height='37'
-                              alt=''
-                              onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = '/tokens/unknown-logo.png';
-                              }}
-                            />
+                  return (
+                    <TableRow
+                      key={"ssRewardsTable" + index}
+                      className={classes.assetTableRow}
+                    >
+                      <TableCell className={classes.cell}>
+                        {["Bribe", "Fees", "Reward", "VoterFees"].includes(
+                          row.rewardType
+                        ) && (
+                          <div className={classes.inline}>
+                            <div className={classes.doubleImages}>
+                              <img
+                                className={classes.img1Logo}
+                                src={
+                                  row && row.token0 && row.token0.logoURI
+                                    ? row.token0.logoURI
+                                    : ``
+                                }
+                                width="37"
+                                height="37"
+                                alt=""
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  e.target.src = "/tokens/unknown-logo.png";
+                                }}
+                              />
+                              <img
+                                className={classes.img2Logo}
+                                src={
+                                  row && row.token1 && row.token1.logoURI
+                                    ? row.token1.logoURI
+                                    : ``
+                                }
+                                width="37"
+                                height="37"
+                                alt=""
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  e.target.src = "/tokens/unknown-logo.png";
+                                }}
+                              />
+                            </div>
+                            <div>
+                              <Typography
+                                variant="h2"
+                                noWrap
+                                className={classes.textSpaced}
+                              >
+                                {row?.symbol}
+                              </Typography>
+                              <Typography
+                                variant="h5"
+                                className={classes.textSpaced}
+                                color="textSecondary"
+                              >
+                                {row?.rewardType}
+                              </Typography>
+                            </div>
                           </div>
-                          <div>
-                            <Typography variant='h2' noWrap className={classes.textSpaced}>
-                              {row?.symbol}
-                            </Typography>
-                            <Typography variant='h5' className={classes.textSpaced} color='textSecondary'>
-                              {row?.rewardType}
-                            </Typography>
+                        )}
+                        {["Distribution"].includes(row.rewardType) && (
+                          <div className={classes.inline}>
+                            <div className={classes.doubleImages}>
+                              <img
+                                className={classes.img1Logo}
+                                src={
+                                  row && row.lockToken && row.lockToken.logoURI
+                                    ? row.lockToken.logoURI
+                                    : ``
+                                }
+                                width="37"
+                                height="37"
+                                alt=""
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  e.target.src = "/tokens/unknown-logo.png";
+                                }}
+                              />
+                            </div>
+                            <div>
+                              <Typography
+                                variant="h2"
+                                noWrap
+                                className={classes.textSpaced}
+                              >
+                                {row?.lockToken?.symbol}
+                              </Typography>
+                              <Typography
+                                variant="h5"
+                                className={classes.textSpaced}
+                                color="textSecondary"
+                              >
+                                {row?.rewardType}
+                              </Typography>
+                            </div>
                           </div>
-                        </div>
-                      }
-                      { ['Distribution'].includes(row.rewardType) &&
-                        <div className={classes.inline}>
-                          <div className={ classes.doubleImages}>
-                            <img
-                              className={classes.img1Logo}
-                              src={ (row && row.lockToken && row.lockToken.logoURI) ? row.lockToken.logoURI : `` }
-                              width='37'
-                              height='37'
-                              alt=''
-                              onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = '/tokens/unknown-logo.png';
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <Typography variant='h2' noWrap className={classes.textSpaced}>
-                              {row?.lockToken?.symbol}
-                            </Typography>
-                            <Typography variant='h5' className={classes.textSpaced} color='textSecondary'>
-                              {row?.rewardType}
-                            </Typography>
-                          </div>
-                        </div>
-                      }
-                    </TableCell>
-                    <TableCell className={classes.cell} align='right'>
-                      <div>
-                        { (row && row.rewardType === 'Bribe' && row.gauge && row.gauge.balance && row.gauge.totalSupply) &&
-                          <>
-                            <div className={ classes.inlineEnd }>
-                              <Typography variant='h2' className={classes.textSpaced}>
-                                 {formatCurrency(BigNumber(row.gauge.balance).div(row.gauge.totalSupply).times(row.gauge.reserve0))}
-                              
-                              </Typography> 
-                               <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                {row.token0.symbol}
-                              </Typography> 
-                            </div>
-                            <div className={ classes.inlineEnd }>
-                               <Typography variant='h5' className={classes.textSpaced}>
-                                {formatCurrency(BigNumber(row.gauge.balance).div(row.gauge.totalSupply).times(row.gauge.reserve1))}
-                            
-                              </Typography> 
-                               <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                {row.token1.symbol}
-                              </Typography> 
-                            </div>
-                          </>
-                        }
-                        { (row && row.rewardType === 'VoterFees' && row.gauge && row.gauge.balance && row.gauge.totalSupply) &&
-                          <>
-                            <div className={ classes.inlineEnd }>
-                               <Typography variant='h2' className={classes.textSpaced}>
-                                {formatCurrency(BigNumber(row.gauge.balance).div(row.gauge.totalSupply).times(row.gauge.reserve0))}
-                            
-                              </Typography> 
-                               <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                {row.token0.symbol}
-                              </Typography> 
-                            </div>
-                            <div className={ classes.inlineEnd }>
-                               <Typography variant='h5' className={classes.textSpaced}>
-                                {formatCurrency(BigNumber(row.gauge.balance).div(row.gauge.totalSupply).times(row.gauge.reserve1))}
-                              
-                              </Typography> 
-                               <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                {row.token1.symbol}
-                              </Typography> 
-                            </div>
-                          </>
-                        }
-                        { (row && row.rewardType === 'Fees' && row.balance && row.totalSupply) &&
-                          <>
-                            <div className={ classes.inlineEnd }>
-                              <Typography variant='h2' className={classes.textSpaced}>
-                                {formatCurrency(BigNumber(row.balance).div(row.totalSupply).times(row.reserve0))}
-                              </Typography>
-                              <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                {row.token0.symbol}
-                              </Typography>
-                            </div>
-                            <div className={ classes.inlineEnd }>
-                              <Typography variant='h5' className={classes.textSpaced}>
-                                {formatCurrency(BigNumber(row.balance).div(row.totalSupply).times(row.reserve1))}
-                              </Typography>
-                              <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                {row.token1.symbol}
-                              </Typography>
-                            </div>
-                          </>
-                        }
-                        { (row && row.rewardType === 'Reward' && row.gauge && row.gauge.balance && row.gauge.totalSupply) &&
-                          <>
-                            <div className={ classes.inlineEnd }>
-                              <Typography variant='h2' className={classes.textSpaced}>
-                                {formatCurrency(BigNumber(row.gauge.balance).div(row.gauge.totalSupply).times(row.gauge.reserve0))}
-                              </Typography>
-                              <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                {row.token0.symbol}
-                              </Typography>
-                            </div>
-                            <div className={ classes.inlineEnd }>
-                              <Typography variant='h5' className={classes.textSpaced}>
-                                {formatCurrency(BigNumber(row.gauge.balance).div(row.gauge.totalSupply).times(row.gauge.reserve1))}
-                              </Typography>
-                              <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                {row.token1.symbol}
-                              </Typography>
-                            </div>
-                          </>
-                        }
-                        { (row && row.rewardType === 'Distribution') &&
-                          <>
-                            <div className={ classes.inlineEnd }>
-                              <Typography variant='h5' className={classes.textSpaced}>
-                                {formatCurrency(row.token?.lockValue)}
-                              </Typography>
-                              <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                {row.lockToken.symbol}
-                              </Typography>
-                            </div>
-                          </>
-                        }
-                      </div>
-                    </TableCell>
-                    <TableCell className={classes.cell} align='right'>
-                      <div>
-                        {
-                          row && row.rewardType === 'Bribe' && row.gauge && row.gauge.bribesEarned && row.gauge.bribesEarned.map((bribe) => {
-                            return (
-                              <div className={ classes.inlineEnd }>
-                                <img
-                                  className={classes.imgLogo}
-                                  src={ (bribe && bribe.token && bribe.token.logoURI) ? bribe.token.logoURI : `` }
-                                  width='24'
-                                  height='24'
-                                  alt=''
-                                  onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = '/tokens/unknown-logo.png';
-                                  }}
-                                />
-                                <Typography variant='h2' className={classes.textSpacedPadded}>
-                                  { formatCurrency(bribe.earned) } 
-                                 
-                                </Typography>
-                                <Typography variant='h5' className={classes.textSpacedPadded} color='textSecondary'>
-                                  { bribe.token?.symbol }
-                                </Typography>
-                              </div>
-                            )
-                          })
-                        }
-                        {
-                          row && row.rewardType === 'VoterFees' && row.gauge && row.gauge.feesEarned && row.gauge.feesEarned.map((bribe) => {
-                            return (
-                              <div className={ classes.inlineEnd }>
-                                <img
-                                  className={classes.imgLogo}
-                                  src={ (bribe && bribe.token && bribe.token.logoURI) ? bribe.token.logoURI : `` }
-                                  width='24'
-                                  height='24'
-                                  alt=''
-                                  onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = '/tokens/unknown-logo.png';
-                                  }}
-                                />
-                                <Typography variant='h2' className={classes.textSpacedPadded}>
-                                   { formatCurrency(bribe.earned) }
-                                
-                                </Typography>
-                                <Typography variant='h5' className={classes.textSpacedPadded} color='textSecondary'>
-                                  { bribe.token?.symbol }
-                                </Typography>
-                              </div>
-                            )
-                          })
-                        }
-                        {
-                          row && row.rewardType === 'Fees' &&
-                            <>
-                              <div className={ classes.inlineEnd }>
-                                <img
-                                  className={classes.imgLogo}
-                                  src={ (row.token0 && row.token0.logoURI) ? row.token0.logoURI : `` }
-                                  width='24'
-                                  height='24'
-                                  alt=''
-                                  onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = '/tokens/unknown-logo.png';
-                                  }}
-                                />
-                                <Typography variant='h2' className={classes.textSpacedPadded}>
-                                  { formatCurrency(row.claimable0) }
-                                </Typography>
-                                <Typography variant='h5' className={classes.textSpacedPadded} color='textSecondary'>
-                                  { row.token0?.symbol }
-                                </Typography>
+                        )}
+                      </TableCell>
+                      <TableCell className={classes.cell} align="right">
+                        <div>
+                          {row &&
+                            row.rewardType === "Bribe" &&
+                            row.gauge &&
+                            row.gauge.balance &&
+                            row.gauge.totalSupply && (
+                              <>
+                                <div className={classes.inlineEnd}>
+                                  <Typography
+                                    variant="h2"
+                                    className={classes.textSpaced}
+                                  >
+                                    {formatCurrency(
+                                      BigNumber(row.gauge.balance)
+                                        .div(row.gauge.totalSupply)
+                                        .times(row.gauge.reserve0)
+                                    )}
+                                  </Typography>
+                                  <Typography
+                                    variant="h5"
+                                    className={`${classes.textSpaced} ${classes.symbol}`}
+                                    color="textSecondary"
+                                  >
+                                    {row.token0.symbol}
+                                  </Typography>
                                 </div>
-                              <div className={ classes.inlineEnd }>
-                                <img
-                                  className={classes.imgLogo}
-                                  src={ (row.token1 && row.token1.logoURI) ? row.token1.logoURI : `` }
-                                  width='24'
-                                  height='24'
-                                  alt=''
-                                  onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = '/tokens/unknown-logo.png';
-                                  }}
-                                />
-                                <Typography variant='h2' className={classes.textSpacedPadded}>
-                                  { formatCurrency(row.claimable1) }
+                                <div className={classes.inlineEnd}>
+                                  <Typography
+                                    variant="h5"
+                                    className={classes.textSpaced}
+                                  >
+                                    {formatCurrency(
+                                      BigNumber(row.gauge.balance)
+                                        .div(row.gauge.totalSupply)
+                                        .times(row.gauge.reserve1)
+                                    )}
+                                  </Typography>
+                                  <Typography
+                                    variant="h5"
+                                    className={`${classes.textSpaced} ${classes.symbol}`}
+                                    color="textSecondary"
+                                  >
+                                    {row.token1.symbol}
+                                  </Typography>
+                                </div>
+                              </>
+                            )}
+                          {row &&
+                            row.rewardType === "VoterFees" &&
+                            row.gauge &&
+                            row.gauge.balance &&
+                            row.gauge.totalSupply && (
+                              <>
+                                <div className={classes.inlineEnd}>
+                                  <Typography
+                                    variant="h2"
+                                    className={classes.textSpaced}
+                                  >
+                                    {formatCurrency(
+                                      BigNumber(row.gauge.balance)
+                                        .div(row.gauge.totalSupply)
+                                        .times(row.gauge.reserve0)
+                                    )}
+                                  </Typography>
+                                  <Typography
+                                    variant="h5"
+                                    className={`${classes.textSpaced} ${classes.symbol}`}
+                                    color="textSecondary"
+                                  >
+                                    {row.token0.symbol}
+                                  </Typography>
+                                </div>
+                                <div className={classes.inlineEnd}>
+                                  <Typography
+                                    variant="h5"
+                                    className={classes.textSpaced}
+                                  >
+                                    {formatCurrency(
+                                      BigNumber(row.gauge.balance)
+                                        .div(row.gauge.totalSupply)
+                                        .times(row.gauge.reserve1)
+                                    )}
+                                  </Typography>
+                                  <Typography
+                                    variant="h5"
+                                    className={`${classes.textSpaced} ${classes.symbol}`}
+                                    color="textSecondary"
+                                  >
+                                    {row.token1.symbol}
+                                  </Typography>
+                                </div>
+                              </>
+                            )}
+                          {row &&
+                            row.rewardType === "Fees" &&
+                            row.balance &&
+                            row.totalSupply && (
+                              <>
+                                <div className={classes.inlineEnd}>
+                                  <Typography
+                                    variant="h2"
+                                    className={classes.textSpaced}
+                                  >
+                                    {formatCurrency(
+                                      BigNumber(row.balance)
+                                        .div(row.totalSupply)
+                                        .times(row.reserve0)
+                                    )}
+                                  </Typography>
+                                  <Typography
+                                    variant="h5"
+                                    className={`${classes.textSpaced} ${classes.symbol}`}
+                                    color="textSecondary"
+                                  >
+                                    {row.token0.symbol}
+                                  </Typography>
+                                </div>
+                                <div className={classes.inlineEnd}>
+                                  <Typography
+                                    variant="h5"
+                                    className={classes.textSpaced}
+                                  >
+                                    {formatCurrency(
+                                      BigNumber(row.balance)
+                                        .div(row.totalSupply)
+                                        .times(row.reserve1)
+                                    )}
+                                  </Typography>
+                                  <Typography
+                                    variant="h5"
+                                    className={`${classes.textSpaced} ${classes.symbol}`}
+                                    color="textSecondary"
+                                  >
+                                    {row.token1.symbol}
+                                  </Typography>
+                                </div>
+                              </>
+                            )}
+                          {row &&
+                            row.rewardType === "Reward" &&
+                            row.gauge &&
+                            row.gauge.balance &&
+                            row.gauge.totalSupply && (
+                              <>
+                                <div className={classes.inlineEnd}>
+                                  <Typography
+                                    variant="h2"
+                                    className={classes.textSpaced}
+                                  >
+                                    {formatCurrency(
+                                      BigNumber(row.gauge.balance)
+                                        .div(row.gauge.totalSupply)
+                                        .times(row.gauge.reserve0)
+                                    )}
+                                  </Typography>
+                                  <Typography
+                                    variant="h5"
+                                    className={`${classes.textSpaced} ${classes.symbol}`}
+                                    color="textSecondary"
+                                  >
+                                    {row.token0.symbol}
+                                  </Typography>
+                                </div>
+                                <div className={classes.inlineEnd}>
+                                  <Typography
+                                    variant="h5"
+                                    className={classes.textSpaced}
+                                  >
+                                    {formatCurrency(
+                                      BigNumber(row.gauge.balance)
+                                        .div(row.gauge.totalSupply)
+                                        .times(row.gauge.reserve1)
+                                    )}
+                                  </Typography>
+                                  <Typography
+                                    variant="h5"
+                                    className={`${classes.textSpaced} ${classes.symbol}`}
+                                    color="textSecondary"
+                                  >
+                                    {row.token1.symbol}
+                                  </Typography>
+                                </div>
+                              </>
+                            )}
+                          {row && row.rewardType === "Distribution" && (
+                            <>
+                              <div className={classes.inlineEnd}>
+                                <Typography
+                                  variant="h5"
+                                  className={classes.textSpaced}
+                                >
+                                  {formatCurrency(row.token?.lockValue)}
                                 </Typography>
-                                <Typography variant='h5' className={classes.textSpacedPadded} color='textSecondary'>
-                                  { row.token1?.symbol }
+                                <Typography
+                                  variant="h5"
+                                  className={`${classes.textSpaced} ${classes.symbol}`}
+                                  color="textSecondary"
+                                >
+                                  {row.lockToken.symbol}
                                 </Typography>
                               </div>
                             </>
-                        }
-                        { (row && row.rewardType === 'Reward') &&
-                          <>
-                            <div className={ classes.inlineEnd }>
-                              <Typography variant='h2' className={classes.textSpaced}>
-                                {formatCurrency(row.gauge.rewardsEarned)}
-                              </Typography>
-                              <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                GLACIER
-                              </Typography>
-                            </div>
-                          </>
-                        }
-                        { (row && row.rewardType === 'Distribution') &&
-                          <>
-                            <div className={ classes.inlineEnd }>
-                              <Typography variant='h5' className={classes.textSpaced}>
-                                {formatCurrency(row.earned)}
-                              </Typography>
-                              <Typography variant='h5' className={`${classes.textSpaced} ${classes.symbol}`} color='textSecondary'>
-                                {row.rewardToken.symbol}
-                              </Typography>
-                            </div>
-                          </>
-                        }
-                      </div>
-                    </TableCell>
-                    <TableCell className={classes.cell} align='right'>
-                    <div style={{display:"grid", gridAutoFlow:"column", gap:"5px", alignItems:"center", border:"2px solid gray", padding:"2px", width:"fit-content", justifySelf:"flex-end", marginLeft:"auto"}}>
-                      <Button
-                        variant='outlined'
-                        color='black'
-                        onClick={() => {
-                          onClaim(row);
-                        }}
-                        style={{background:"linear-gradient(0deg,white 3%,gray 10%,lavender)", color:"black", borderRadius:0,border:"2px solid gray"}}
-                      >
-                        Claim
-                      </Button>
-                      <div style={{height: "100%", width:"11px", background:"linear-gradient(0deg, cyan, blue, purple,magenta, red)"}}></div>
-                    </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell className={classes.cell} align="right">
+                        <div>
+                          {row &&
+                            row.rewardType === "Bribe" &&
+                            row.gauge &&
+                            row.gauge.bribesEarned &&
+                            row.gauge.bribesEarned.map((bribe) => {
+                              return (
+                                <div className={classes.inlineEnd}>
+                                  <img
+                                    className={classes.imgLogo}
+                                    src={
+                                      bribe &&
+                                      bribe.token &&
+                                      bribe.token.logoURI
+                                        ? bribe.token.logoURI
+                                        : ``
+                                    }
+                                    width="24"
+                                    height="24"
+                                    alt=""
+                                    onError={(e) => {
+                                      e.target.onerror = null;
+                                      e.target.src = "/tokens/unknown-logo.png";
+                                    }}
+                                  />
+                                  <Typography
+                                    variant="h2"
+                                    className={classes.textSpacedPadded}
+                                  >
+                                    {formatCurrency(bribe.earned)}
+                                  </Typography>
+                                  <Typography
+                                    variant="h5"
+                                    className={classes.textSpacedPadded}
+                                    color="textSecondary"
+                                  >
+                                    {bribe.token?.symbol}
+                                  </Typography>
+                                </div>
+                              );
+                            })}
+                          {row &&
+                            row.rewardType === "VoterFees" &&
+                            row.gauge &&
+                            row.gauge.feesEarned &&
+                            row.gauge.feesEarned.map((bribe) => {
+                              return (
+                                <div className={classes.inlineEnd}>
+                                  <img
+                                    className={classes.imgLogo}
+                                    src={
+                                      bribe &&
+                                      bribe.token &&
+                                      bribe.token.logoURI
+                                        ? bribe.token.logoURI
+                                        : ``
+                                    }
+                                    width="24"
+                                    height="24"
+                                    alt=""
+                                    onError={(e) => {
+                                      e.target.onerror = null;
+                                      e.target.src = "/tokens/unknown-logo.png";
+                                    }}
+                                  />
+                                  <Typography
+                                    variant="h2"
+                                    className={classes.textSpacedPadded}
+                                  >
+                                    {formatCurrency(bribe.earned)}
+                                  </Typography>
+                                  <Typography
+                                    variant="h5"
+                                    className={classes.textSpacedPadded}
+                                    color="textSecondary"
+                                  >
+                                    {bribe.token?.symbol}
+                                  </Typography>
+                                </div>
+                              );
+                            })}
+                          {row && row.rewardType === "Fees" && (
+                            <>
+                              <div className={classes.inlineEnd}>
+                                <img
+                                  className={classes.imgLogo}
+                                  src={
+                                    row.token0 && row.token0.logoURI
+                                      ? row.token0.logoURI
+                                      : ``
+                                  }
+                                  width="24"
+                                  height="24"
+                                  alt=""
+                                  onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "/tokens/unknown-logo.png";
+                                  }}
+                                />
+                                <Typography
+                                  variant="h2"
+                                  className={classes.textSpacedPadded}
+                                >
+                                  {formatCurrency(row.claimable0)}
+                                </Typography>
+                                <Typography
+                                  variant="h5"
+                                  className={classes.textSpacedPadded}
+                                  color="textSecondary"
+                                >
+                                  {row.token0?.symbol}
+                                </Typography>
+                              </div>
+                              <div className={classes.inlineEnd}>
+                                <img
+                                  className={classes.imgLogo}
+                                  src={
+                                    row.token1 && row.token1.logoURI
+                                      ? row.token1.logoURI
+                                      : ``
+                                  }
+                                  width="24"
+                                  height="24"
+                                  alt=""
+                                  onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "/tokens/unknown-logo.png";
+                                  }}
+                                />
+                                <Typography
+                                  variant="h2"
+                                  className={classes.textSpacedPadded}
+                                >
+                                  {formatCurrency(row.claimable1)}
+                                </Typography>
+                                <Typography
+                                  variant="h5"
+                                  className={classes.textSpacedPadded}
+                                  color="textSecondary"
+                                >
+                                  {row.token1?.symbol}
+                                </Typography>
+                              </div>
+                            </>
+                          )}
+                          {row && row.rewardType === "Reward" && (
+                            <>
+                              <div className={classes.inlineEnd}>
+                                <Typography
+                                  variant="h2"
+                                  className={classes.textSpaced}
+                                >
+                                  {formatCurrency(row.gauge.rewardsEarned)}
+                                </Typography>
+                                <Typography
+                                  variant="h5"
+                                  className={`${classes.textSpaced} ${classes.symbol}`}
+                                  color="textSecondary"
+                                >
+                                  GLACIER
+                                </Typography>
+                              </div>
+                            </>
+                          )}
+                          {row && row.rewardType === "Distribution" && (
+                            <>
+                              <div className={classes.inlineEnd}>
+                                <Typography
+                                  variant="h5"
+                                  className={classes.textSpaced}
+                                >
+                                  {formatCurrency(row.earned)}
+                                </Typography>
+                                <Typography
+                                  variant="h5"
+                                  className={`${classes.textSpaced} ${classes.symbol}`}
+                                  color="textSecondary"
+                                >
+                                  {row.rewardToken.symbol}
+                                </Typography>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell className={classes.cell} align="right">
+                        <div
+                          style={{
+                            display: "grid",
+                            gridAutoFlow: "column",
+                            gap: "5px",
+                            alignItems: "center",
+                            border: "2px solid gray",
+                            padding: "2px",
+                            width: "fit-content",
+                            justifySelf: "flex-end",
+                            marginLeft: "auto",
+                          }}
+                        >
+                          <Button
+                            variant="outlined"
+                            color="black"
+                            onClick={() => {
+                              onClaim(row);
+                            }}
+                            style={{
+                              background:
+                                "linear-gradient(0deg,white 3%,gray 10%,lavender)",
+                              color: "black",
+                              borderRadius: 0,
+                              border: "2px solid gray",
+                            }}
+                          >
+                            Claim
+                          </Button>
+                          <div
+                            style={{
+                              height: "100%",
+                              width: "11px",
+                              background:
+                                "linear-gradient(0deg, cyan, blue, purple,magenta, red)",
+                            }}
+                          ></div>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
             </TableBody>
           </Table>
         </TableContainer>

@@ -483,17 +483,26 @@ export async function checkNewPairs() {
   await updateDBPairs(updatedPairs);
 }
 
-export async function updatePairsStats() {
+export async function updatePairsStats(startIndex, endIndex) {
   const allPairsLength = await PairFactoryContract.methods
     .allPairsLength()
     .call();
 
-  let updatedPairs = [];
-  for (let i = 0; i < allPairsLength; i++) {
-    const pair = await _getPairData(i);
-    if (pair) {
-      updatedPairs.push(pair);
+  if (startIndex < allPairsLength) {
+    if (endIndex > allPairsLength) {
+      endIndex = allPairsLength;
     }
+
+    let updatedPairs = [];
+    for (let i = startIndex; i < endIndex; i++) {
+      console.log("updating pair for index " + i);
+      const pair = await _getPairData(i);
+      if (pair) {
+        updatedPairs.push(pair);
+      }
+    }
+    await updateDBPairs(updatedPairs);
+    return true;
   }
-  await updateDBPairs(updatedPairs);
+  return false;
 }

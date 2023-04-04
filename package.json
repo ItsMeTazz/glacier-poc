@@ -8,7 +8,7 @@
     "build": "next build",
     "export": "next export",
     "build2": "next build && next export",
-    "start": "NODE_ENV=production node server.js"
+    "start": "next start"
   },
   "dependencies": {
     "@dopex-io/web3-multicall": "^0.1.5",
