@@ -1943,7 +1943,7 @@ class Store {
         CONTRACTS.ROUTER_ABI,
         CONTRACTS.ROUTER_ADDRESS
       );
-      console.log('[_callContractWait] A')
+      console.log("[_callContractWait] A");
       this._callContractWait(
         web3,
         routerContract,
@@ -1979,7 +1979,7 @@ class Store {
             CONTRACTS.VOTER_ABI,
             CONTRACTS.VOTER_ADDRESS
           );
-          console.log('[_callContractWait] B')
+          console.log("[_callContractWait] B");
 
           this._callContractWait(
             web3,
@@ -2336,7 +2336,7 @@ class Store {
         CONTRACTS.ROUTER_ABI,
         CONTRACTS.ROUTER_ADDRESS
       );
-      console.log('[_callContractWait] C')
+      console.log("[_callContractWait] C");
 
       this._callContractWait(
         web3,
@@ -2371,7 +2371,7 @@ class Store {
             CONTRACTS.VOTER_ABI,
             CONTRACTS.VOTER_ADDRESS
           );
-          console.log('[_callContractWait] D')
+          console.log("[_callContractWait] D");
 
           this._callContractWait(
             web3,
@@ -2653,8 +2653,8 @@ class Store {
           deadline,
         ];
         sendValue = sendAmount1;
-      }      console.log('[_callContractWait] E')
-
+      }
+      console.log("[_callContractWait] E");
 
       this._callContractWait(
         web3,
@@ -2751,8 +2751,7 @@ class Store {
       const allowanceCallsPromises = [];
 
       if (parseFloat(stakeAllowance) < parseFloat(balanceOf)) {
-
-        console.log('PAIR COntract address = ' + pair.address)
+        console.log("PAIR COntract address = " + pair.address);
         const stakePromise = new Promise((resolve, reject) => {
           context._callContractWait(
             web3,
@@ -2790,8 +2789,8 @@ class Store {
       if (token && token.id) {
         sendTok = token.id;
       }
-      console.log('[_callContractWait] F')
-      console.log('ADDRESS = ' + pair.gauge.address)
+      console.log("[_callContractWait] F");
+      console.log("ADDRESS = " + pair.gauge.address);
       this._callContractWait(
         web3,
         gaugeContract,
@@ -3090,7 +3089,7 @@ class Store {
         CONTRACTS.GAUGE_ABI,
         pair.gauge.address
       );
-      console.log('-- pair.gauge.address = ' + pair.gauge.address)
+      console.log("-- pair.gauge.address = " + pair.gauge.address);
 
       console.log("10");
 
@@ -3151,24 +3150,25 @@ class Store {
             return this.emitter.emit(ACTIONS.ERROR, err);
           }
 
-          const balanceOf = await pairContract.methods.balanceOf(account.address).call()
-          console.log('updated balance = ' + balanceOf)
+          let updatedBalance = 0;
+          while (Number(updatedBalance) === 0) {
+            updatedBalance = await pairContract.methods
+              .balanceOf(account.address)
+              .call();
+            await new Promise((r) => setTimeout(r, 500));
+          }
+
+          updatedBalance = updatedBalance.toString();
           let sendTok = "0";
           if (token && token.id) {
             sendTok = token.id;
           }
-          console.log(pair.gauge.address, [balanceOf, sendTok]);
 
-          console.log('-- balanceOf = ' + balanceOf)
-          console.log('-- sendTok = ' + sendTok)
-          console.log('-- account = ' + account)
-          console.log('-- gasPrice = ' + gasPrice)
-          console.log('-- stakeTXID = ' + stakeTXID)
           this._callContractWait(
             web3,
             gaugeContract,
             "deposit",
-            [balanceOf, sendTok],
+            [updatedBalance, sendTok],
             account,
             gasPrice,
             null,
@@ -3181,7 +3181,6 @@ class Store {
               }
 
               this._getPairInfo(web3, account);
-              console.log("_callContractWaitB - 12");
 
               this.emitter.emit(ACTIONS.ADD_LIQUIDITY_AND_STAKED);
             }
@@ -3245,7 +3244,6 @@ class Store {
       const allowance = await tokenContract.methods
         .allowance(account.address, CONTRACTS.ROUTER_ADDRESS)
         .call();
-      console.log("allowance", allowance, pair.decimals);
       return parseInt(allowance) == 0
         ? 0
         : BigNumber(allowance)
@@ -3378,7 +3376,6 @@ class Store {
         poolBalance,
         gaugeBalance /*, earned*/,
       ] = await Promise.all(balanceCalls);
-      console.log(poolBalance, "poolbalance");
 
       const returnVal = {
         token0: BigNumber(token0Balance)
@@ -3488,7 +3485,7 @@ class Store {
             allowanceTXID,
             (err) => {
               if (err) {
-                console.log(err);
+                console.error(err);
                 reject(err);
                 return;
               }
@@ -4497,7 +4494,6 @@ class Store {
 
   createVest = async (payload) => {
     try {
-      console.log(payload, "payload");
       const account = stores.accountStore.getStore("account");
 
       if (!account) {
@@ -5129,7 +5125,6 @@ class Store {
           asset.address
         );
 
-
         const tokenPromise = new Promise((resolve, reject) => {
           this._callContractWait(
             web3,
@@ -5162,7 +5157,6 @@ class Store {
         CONTRACTS.BRIBE_ABI,
         gauge.gauge.bribeAddress
       );
-
 
       const sendAmount = BigNumber(amount)
         .times(10 ** asset.decimals)
@@ -5339,7 +5333,6 @@ class Store {
           newThePairsB.map(async (pair) => {
             const bribesEarned1 = await Promise.all(
               pair.gauge.bribes.map(async (bribe) => {
-
                 const bribeContract = new web3.eth.Contract(
                   CONTRACTS.BRIBE_ABI,
                   pair.gauge.bribeAddress
@@ -6287,22 +6280,18 @@ class Store {
     paddGasCost,
     sendValue = 0
   ) => {
-
     let count = await web3.eth.getTransactionCount(account.address, "pending");
     //estimate gas
 
-  
     this.emitter.emit(ACTIONS.TX_PENDING, { uuid });
- 
-      
+
     await contract.methods[method](...params)
       .estimateGas({ from: account.address, value: sendValue })
       .then((gasAmount) => {
-      
         const context = this;
         let sendGasAmount = BigNumber(gasAmount).times(1.5).toFixed(0);
         let sendGasPrice = BigNumber(gasPrice).times(1.5).toFixed(0);
-      
+
         contract.methods[method](...params)
           .send({
             nonce: count,
@@ -6323,9 +6312,7 @@ class Store {
             });
             callback(null, receipt.transactionHash);
 
-
             if (dispatchEvent) {
-
               context.dispatcher.dispatch({
                 type: dispatchEvent,
                 content: dispatchContent,
@@ -6351,7 +6338,7 @@ class Store {
             }
           })
           .catch((error) => {
-            console.error(error)
+            console.error(error);
             if (!error.toString().includes("-32601")) {
               if (error.message) {
                 context.emitter.emit(ACTIONS.TX_REJECTED, {
@@ -6393,7 +6380,6 @@ class Store {
     paddGasCost,
     sendValue = null
   ) => {
-
     const paircon = await pairContract.methods
       .balanceOf(account.address)
       .call();
