@@ -1028,7 +1028,7 @@ class Store {
 
   _getRouteAssets = async () => {
     try {
-      return routeAssetsCall;
+      return routesSync;
     } catch (ex) {
       console.error(ex);
       return [];
