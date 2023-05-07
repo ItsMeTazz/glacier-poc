@@ -1435,8 +1435,7 @@
       "address": "0x5C09A9cE08C4B332Ef1CC5f7caDB1158C32767Ce",
       "chainId": 43114,
       "decimals": 18,
-      "logoURI": "https://github.com/glacierfi/front-end/blob/main/public/tokens/FBOMB.png?raw=true",
-      "fees": 1
+      "logoURI": "https://github.com/glacierfi/front-end/blob/main/public/tokens/FBOMB.png?raw=true"
     },
     {
       "name": "GRAPE",
@@ -1492,8 +1491,7 @@
       "address": "0x8901cB2e82CC95c01e42206F8d1F417FE53e7Af0",
       "chainId": 43114,
       "decimals": 18,
-      "logoURI": "https://github.com/glacierfi/front-end/blob/main/public/tokens/YFX.png?raw=true",
-      "fees": 1
+      "logoURI": "https://github.com/glacierfi/front-end/blob/main/public/tokens/YFX.png?raw=true"
     },
     {
       "name": "Ankr Network ANKR",
